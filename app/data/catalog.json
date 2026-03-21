@@ -1,0 +1,165 @@
+[
+  {
+    "id": "P001",
+    "name": "Yerba Mate Canarias 500g",
+    "description": "Yerba mate tradicional uruguaya, corte fino. Bolsa de 500 gramos.",
+    "price": 850.0,
+    "unit": "bolsa",
+    "category": "Yerba Mate",
+    "stock": 200,
+    "promotions": [
+      {
+        "description": "Llevando 10 o más bolsas, 15% de descuento",
+        "discount_percent": 15,
+        "min_quantity": 10,
+        "conditions": "Por cantidad mínima de 10 unidades"
+      }
+    ],
+    "tags": ["yerba", "mate", "canarias", "500g"]
+  },
+  {
+    "id": "P002",
+    "name": "Yerba Mate Canarias 1kg",
+    "description": "Yerba mate tradicional uruguaya, corte fino. Bolsa de 1 kilogramo.",
+    "price": 1500.0,
+    "unit": "bolsa",
+    "category": "Yerba Mate",
+    "stock": 150,
+    "promotions": [
+      {
+        "description": "Llevando 6 o más bolsas, 10% de descuento",
+        "discount_percent": 10,
+        "min_quantity": 6,
+        "conditions": "Por cantidad mínima de 6 unidades"
+      }
+    ],
+    "tags": ["yerba", "mate", "canarias", "1kg"]
+  },
+  {
+    "id": "P003",
+    "name": "Termo Stanley 1L",
+    "description": "Termo de acero inoxidable, capacidad 1 litro. Mantiene temperatura hasta 24hs. Color verde.",
+    "price": 8500.0,
+    "unit": "unidad",
+    "category": "Accesorios Mate",
+    "stock": 45,
+    "promotions": [],
+    "tags": ["termo", "stanley", "acero", "1 litro"]
+  },
+  {
+    "id": "P004",
+    "name": "Mate Calabaza Premium",
+    "description": "Mate de calabaza curado, con aro y bombilla incluidos. Ideal para empezar a matear.",
+    "price": 3200.0,
+    "unit": "unidad",
+    "category": "Accesorios Mate",
+    "stock": 30,
+    "promotions": [
+      {
+        "description": "Combo mate + termo: 10% descuento en la compra conjunta",
+        "discount_percent": 10,
+        "conditions": "Al comprar Mate Calabaza + Termo Stanley juntos"
+      }
+    ],
+    "tags": ["mate", "calabaza", "bombilla", "curado"]
+  },
+  {
+    "id": "P005",
+    "name": "Azúcar Refinada 1kg",
+    "description": "Azúcar blanca refinada, bolsa de 1 kilogramo.",
+    "price": 450.0,
+    "unit": "bolsa",
+    "category": "Almacén",
+    "stock": 500,
+    "promotions": [
+      {
+        "description": "Pack x6: 5% de descuento",
+        "discount_percent": 5,
+        "min_quantity": 6,
+        "conditions": "Por cantidad mínima de 6 bolsas"
+      }
+    ],
+    "tags": ["azúcar", "azucar", "refinada", "1kg"]
+  },
+  {
+    "id": "P006",
+    "name": "Café Molido Unión 250g",
+    "description": "Café molido tradicional de tueste natural, 250 gramos. Ideal para cafetera.",
+    "price": 1200.0,
+    "unit": "paquete",
+    "category": "Café y Infusiones",
+    "stock": 80,
+    "promotions": [
+      {
+        "description": "2do paquete al 50%",
+        "discount_percent": 50,
+        "min_quantity": 2,
+        "conditions": "Comprando 2 paquetes, el segundo tiene 50% de descuento"
+      }
+    ],
+    "tags": ["café", "cafe", "molido", "unión", "union", "250g"]
+  },
+  {
+    "id": "P007",
+    "name": "Té Lipton Caja x25",
+    "description": "Té negro Lipton en saquitos, caja de 25 unidades.",
+    "price": 680.0,
+    "unit": "caja",
+    "category": "Café e Infusiones",
+    "stock": 120,
+    "promotions": [],
+    "tags": ["té", "te", "lipton", "saquitos", "infusión"]
+  },
+  {
+    "id": "P008",
+    "name": "Galletitas Oreo x3 Pack",
+    "description": "Pack de 3 paquetes de galletitas Oreo rellenas de crema. 432 gramos en total.",
+    "price": 1800.0,
+    "unit": "pack",
+    "category": "Galletitas y Snacks",
+    "stock": 60,
+    "promotions": [
+      {
+        "description": "Comprando 4 packs, uno es gratis",
+        "conditions": "Promo 4x3 en pack Oreo"
+      }
+    ],
+    "tags": ["galletitas", "oreo", "pack", "crema"]
+  },
+  {
+    "id": "P009",
+    "name": "Agua Mineral Salus 1.5L",
+    "description": "Agua mineral sin gas Salus, botella de 1.5 litros.",
+    "price": 320.0,
+    "unit": "botella",
+    "category": "Bebidas",
+    "stock": 300,
+    "promotions": [
+      {
+        "description": "Caja de 12 botellas a precio especial",
+        "discount_amount": 400,
+        "min_quantity": 12,
+        "conditions": "Comprando 12 unidades, descuento de $400 en total"
+      }
+    ],
+    "tags": ["agua", "mineral", "salus", "sin gas", "1.5l"]
+  },
+  {
+    "id": "P010",
+    "name": "Detergente Magistral 750ml",
+    "description": "Detergente líquido para vajilla, aroma limón. Botella de 750ml.",
+    "price": 590.0,
+    "unit": "botella",
+    "category": "Limpieza",
+    "stock": 200,
+    "promotions": [
+      {
+        "description": "Llevando 3 o más, 8% de descuento",
+        "discount_percent": 8,
+        "min_quantity": 3,
+        "conditions": "Por cantidad mínima de 3 botellas"
+      }
+    ],
+    "tags": ["detergente", "magistral", "limpieza", "vajilla", "limón", "limon"]
+  }
+]
