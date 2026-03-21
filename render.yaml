@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: inventory-bot
+    runtime: python
+    pythonVersion: "3.11.4"
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_WHATSAPP_NUMBER
+        sync: false
+      - key: APP_HOST
+        value: 0.0.0.0
+      - key: DEBUG
+        value: "false"
