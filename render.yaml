@@ -1,12 +1,15 @@
+# https://render.com/docs/blueprint-spec
+# Python: usar PYTHON_VERSION o .python-version — el campo `pythonVersion` no está en la spec y puede ignorarse.
 services:
   - type: web
     name: inventory-bot
     runtime: python
-    pythonVersion: "3.11.4"
     plan: free
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install --upgrade pip setuptools wheel && pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.11
       - key: OPENAI_API_KEY
         sync: false
       - key: OPENAI_MODEL
