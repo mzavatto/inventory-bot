@@ -1,5 +1,5 @@
 from pydantic_settings import BaseSettings
-from pydantic import Field
+from pydantic import Field, field_validator
 
 
 class Settings(BaseSettings):
@@ -17,6 +17,18 @@ class Settings(BaseSettings):
     debug: bool = Field(default=False, alias="DEBUG")
 
     model_config = {"env_file": ".env", "populate_by_name": True}
+
+    @field_validator(
+        "twilio_account_sid",
+        "twilio_auth_token",
+        "twilio_webhook_base_url",
+        mode="before",
+    )
+    @classmethod
+    def _strip_twilio_str(cls, v: object) -> object:
+        if isinstance(v, str):
+            return v.strip()
+        return v
 
 
 settings = Settings()

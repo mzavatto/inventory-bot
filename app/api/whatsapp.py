@@ -30,6 +30,19 @@ _TWILIO_MEDIA_PATH_RE = _re.compile(
     r"^/\d{4}-\d{2}-\d{2}/Accounts/AC[0-9a-f]+/Messages/MM[0-9a-f]+/Media/ME[0-9a-f]+$",
     _re.IGNORECASE,
 )
+_TWILIO_ACCOUNT_IN_PATH = _re.compile(
+    r"/Accounts/(AC[0-9a-f]{32})/", _re.IGNORECASE
+)
+
+
+def _account_sid_from_twilio_media_url(url: str) -> str | None:
+    """AccountSid dueño del recurso (debe coincidir con el Auth Token en Basic auth)."""
+    try:
+        path = urlparse(url).path
+    except Exception:
+        return None
+    m = _TWILIO_ACCOUNT_IN_PATH.search(path)
+    return m.group(1) if m else None
 
 
 def _safe_twilio_media_url(user_url: str) -> str | None:
@@ -141,26 +154,54 @@ async def whatsapp_webhook(
             logger.warning("Rejected media URL – failed validation: %s", MediaUrl0)
             user_message = Body or "No pude procesar el audio."
         else:
-            try:
-                async with httpx.AsyncClient() as client:
-                    auth = (
-                        (settings.twilio_account_sid, settings.twilio_auth_token)
-                        if settings.twilio_account_sid
-                        else None
-                    )
-                    media_resp = await client.get(safe_url, auth=auth)
-                    media_resp.raise_for_status()
-                    audio_bytes = media_resp.content
-
-                openai_client = OpenAI(api_key=settings.openai_api_key)
-                transcription = openai_client.audio.transcriptions.create(
-                    model="whisper-1",
-                    file=("voice.ogg", audio_bytes, MediaContentType0),
+            # Basic auth: usuario = AccountSid del recurso en la URL (dueño del mensaje/medio).
+            account_sid = _account_sid_from_twilio_media_url(safe_url)
+            if not account_sid:
+                account_sid = settings.twilio_account_sid
+            token = settings.twilio_auth_token
+            if (
+                settings.twilio_account_sid
+                and account_sid
+                and account_sid.upper() != settings.twilio_account_sid.upper()
+            ):
+                logger.warning(
+                    "TWILIO_ACCOUNT_SID no coincide con la cuenta del Media URL; "
+                    "usando el SID del medio para Basic auth"
                 )
-                user_message = transcription.text
-            except Exception as exc:
-                logger.exception("Error transcribing WhatsApp voice message: %s", exc)
+            if not account_sid or not token:
+                logger.error(
+                    "No se puede bajar el audio: falta AccountSid o TWILIO_AUTH_TOKEN"
+                )
                 user_message = Body or "No pude procesar el audio."
+            else:
+                try:
+                    async with httpx.AsyncClient(
+                        follow_redirects=True, timeout=60.0
+                    ) as client:
+                        media_resp = await client.get(
+                            safe_url,
+                            auth=httpx.BasicAuth(account_sid, token),
+                        )
+                        media_resp.raise_for_status()
+                        audio_bytes = media_resp.content
+
+                    openai_client = OpenAI(api_key=settings.openai_api_key)
+                    transcription = openai_client.audio.transcriptions.create(
+                        model="whisper-1",
+                        file=("voice.ogg", audio_bytes, MediaContentType0),
+                    )
+                    user_message = transcription.text
+                except Exception as exc:
+                    if isinstance(exc, httpx.HTTPStatusError) and exc.response.status_code == 401:
+                        logger.error(
+                            "Twilio 401 al bajar el audio: TWILIO_AUTH_TOKEN debe ser el "
+                            "**Auth Token** de la cuenta del mensaje (Console → Account), "
+                            "no un API Key Secret; y debe coincidir con el Account del medio."
+                        )
+                    logger.exception(
+                        "Error transcribing WhatsApp voice message: %s", exc
+                    )
+                    user_message = Body or "No pude procesar el audio."
     else:
         user_message = Body
 
