@@ -2,6 +2,7 @@ services:
   - type: web
     name: inventory-bot
     runtime: python
+    pythonVersion: "3.11.4"
     plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
@@ -18,9 +19,5 @@ services:
         sync: false
       - key: APP_HOST
         value: 0.0.0.0
-      - key: APP_PORT
-        value: $PORT
       - key: DEBUG
         value: "false"
-      - key: PYTHON_VERSION
-        value: "3.11.4"
