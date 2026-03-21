@@ -5,13 +5,12 @@ Receives incoming WhatsApp messages from Twilio and replies via the assistant.
 """
 from __future__ import annotations
 
-import hashlib
-import hmac
 import logging
-from urllib.parse import urlencode, urlparse
+from urllib.parse import urlparse
 
 from fastapi import APIRouter, Form, Header, HTTPException, Request
 from fastapi.responses import PlainTextResponse
+from twilio.request_validator import RequestValidator
 
 from app.config import settings
 from app.services.assistant import assistant_service
@@ -59,21 +58,30 @@ def _safe_twilio_media_url(user_url: str) -> str | None:
     return _TWILIO_API_BASE + path
 
 
-def _verify_twilio_signature(
-    auth_token: str, url: str, params: dict, x_twilio_signature: str
-) -> bool:
-    """Verify Twilio webhook signature for security."""
-    sorted_params = sorted(params.items())
-    string_to_sign = url + urlencode(sorted_params)
-    mac = hmac.new(
-        auth_token.encode("utf-8"),
-        string_to_sign.encode("utf-8"),
-        hashlib.sha1,
-    )
-    import base64
+def _public_webhook_url(request: Request) -> str:
+    """
+    URL que Twilio usó al firmar: debe ser https y el host público (no el interno del proxy).
+    """
+    u = request.url
+    path, query = u.path, u.query
+    suffix = f"?{query}" if query else ""
 
-    expected = base64.b64encode(mac.digest()).decode("utf-8")
-    return hmac.compare_digest(expected, x_twilio_signature)
+    base = (settings.twilio_webhook_base_url or "").rstrip("/")
+    if base:
+        return f"{base}{path}{suffix}"
+
+    proto = (
+        request.headers.get("x-forwarded-proto", "").split(",")[0].strip().lower()
+        or u.scheme
+    )
+    host = (
+        request.headers.get("x-forwarded-host", "").split(",")[0].strip()
+        or request.headers.get("host", "").split(",")[0].strip()
+    )
+    if proto and host:
+        return f"{proto}://{host}{path}{suffix}"
+
+    return str(u)
 
 
 def _twiml_response(message: str) -> str:
@@ -107,12 +115,18 @@ async def whatsapp_webhook(
     conversation has its own persistent context.
     """
     if settings.twilio_auth_token:
-        form_data = dict(await request.form())
-        url = str(request.url)
-        if not _verify_twilio_signature(
-            settings.twilio_auth_token, url, form_data, x_twilio_signature
-        ):
-            logger.warning("Invalid Twilio signature from %s", From)
+        if not x_twilio_signature:
+            logger.warning("Missing X-Twilio-Signature (From=%s)", From)
+            raise HTTPException(status_code=403, detail="Missing signature")
+        form_data = await request.form()
+        url = _public_webhook_url(request)
+        validator = RequestValidator(settings.twilio_auth_token)
+        if not validator.validate(url, form_data, x_twilio_signature):
+            logger.warning(
+                "Invalid Twilio signature From=%s url_used=%s",
+                From,
+                url,
+            )
             raise HTTPException(status_code=403, detail="Invalid signature")
 
     session_id = From
