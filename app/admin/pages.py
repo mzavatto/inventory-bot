@@ -545,8 +545,16 @@ def _render_catalog_page(username: str, imports_html: str) -> str:
         }});
 
         function handleFile(file) {{
+            // Client-side validation (server also validates)
             if (!file.name.toLowerCase().endsWith('.pdf')) {{
-                alert('Only PDF files are allowed');
+                showError('Only PDF files are allowed. Please select a .pdf file.');
+                return;
+            }}
+            
+            // Check file size (50MB default limit)
+            const maxSize = 50 * 1024 * 1024;
+            if (file.size > maxSize) {{
+                showError('File is too large. Maximum file size is 50MB.');
                 return;
             }}
 

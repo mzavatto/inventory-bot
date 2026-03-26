@@ -19,8 +19,11 @@ class Settings(BaseSettings):
     debug: bool = Field(default=False, alias="DEBUG")
 
     # Admin configuration
+    # IMPORTANT: Change these default values in production!
     admin_username: str = Field(default="admin", alias="ADMIN_USERNAME")
     admin_password: str = Field(default="changeme", alias="ADMIN_PASSWORD")
+    # WARNING: The default secret key is insecure. Set ADMIN_SECRET_KEY
+    # in your environment or .env file for production deployments.
     admin_secret_key: str = Field(
         default="change-this-secret-key-in-production",
         alias="ADMIN_SECRET_KEY",

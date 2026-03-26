@@ -8,7 +8,10 @@ import logging
 import re
 import unicodedata
 from dataclasses import dataclass, field
-from typing import Any
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import pdfplumber.page
 
 from app.admin.models import (
     CatalogItem,
@@ -454,8 +457,12 @@ class PDFParser:
 
         return pages
 
-    def _extract_text_with_ocr(self, page: Any) -> str:
-        """Extract text from a page using OCR as fallback."""
+    def _extract_text_with_ocr(self, page: "pdfplumber.page.Page") -> str:
+        """Extract text from a page using OCR as fallback.
+        
+        Args:
+            page: A pdfplumber Page object.
+        """
         try:
             import pytesseract
             from PIL import Image
