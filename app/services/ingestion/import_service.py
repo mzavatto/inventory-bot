@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import asyncio
 import hashlib
+import json
 import logging
 import shutil
 import uuid
@@ -12,9 +13,7 @@ from typing import BinaryIO
 
 from app.admin.models import (
     CatalogImport,
-    CatalogImportSummary,
     CatalogItem,
-    CatalogMetadata,
     ImportHistoryItem,
     ImportStatus,
 )
@@ -22,6 +21,187 @@ from app.config import settings
 from app.services.ingestion.parser import PARSER_VERSION, ParseResult, get_parser
 
 logger = logging.getLogger(__name__)
+
+# Path to the catalog JSON file
+_CATALOG_JSON_PATH = Path(__file__).parent.parent.parent / "data" / "catalog.json"
+
+
+def _catalog_item_to_product_dict(item: CatalogItem, idx: int) -> dict:
+    """Convert a CatalogItem to a product dictionary for catalog.json.
+    
+    Args:
+        item: The CatalogItem to convert.
+        idx: Index for generating a unique ID.
+    
+    Returns:
+        A dictionary in the format used by catalog.json.
+    """
+    # Get the primary SKU or generate an ID
+    if item.skus:
+        product_id = item.skus[0].sku
+    else:
+        product_id = f"P{idx:03d}"
+    
+    # Get price from the item's prices
+    price = 0.0
+    if item.prices:
+        # Prefer psvp_lista, then precio_preferencial, then any available price
+        price_info = item.prices[0]
+        if price_info.psvp_lista:
+            price = price_info.psvp_lista
+        elif price_info.precio_preferencial:
+            price = price_info.precio_preferencial
+        elif price_info.psvp_negocio:
+            price = price_info.psvp_negocio
+    
+    # Build description
+    description_parts = []
+    if item.section_name:
+        description_parts.append(f"Sección: {item.section_name}")
+    if item.size_cm:
+        description_parts.append(f"Tamaño: {item.size_cm}")
+    if item.dimensions:
+        description_parts.append(f"Dimensiones: {item.dimensions}")
+    if item.capacity_liters:
+        description_parts.append(f"Capacidad: {item.capacity_liters}L")
+    
+    description = ". ".join(description_parts) if description_parts else item.name
+    
+    # Build tags from name and section
+    tags = []
+    name_words = item.name.lower().split()
+    for word in name_words:
+        if len(word) > 2 and word not in tags:
+            tags.append(word)
+    if item.section_name:
+        section_words = item.section_name.lower().split()
+        for word in section_words:
+            if len(word) > 2 and word not in tags:
+                tags.append(word)
+    
+    # Build promotions list
+    promotions = []
+    if item.prices:
+        price_info = item.prices[0]
+        # Add installment info as promotion
+        installments = []
+        if price_info.installments_12:
+            installments.append(f"12 cuotas de ${price_info.installments_12:,.2f}")
+        if price_info.installments_15:
+            installments.append(f"15 cuotas de ${price_info.installments_15:,.2f}")
+        if price_info.installments_10:
+            installments.append(f"10 cuotas de ${price_info.installments_10:,.2f}")
+        
+        if installments:
+            promotions.append({
+                "description": "Cuotas sin interés disponibles: " + ", ".join(installments),
+                "conditions": "Consultar cuotas disponibles"
+            })
+        
+        # Add points info if available
+        if price_info.puntos or price_info.puntos_essen_plus:
+            points_desc = []
+            if price_info.puntos_essen_plus:
+                points_desc.append(f"Puntos Essen+: {price_info.puntos_essen_plus}")
+            if price_info.puntos:
+                points_desc.append(f"Puntos: {price_info.puntos}")
+            promotions.append({
+                "description": " | ".join(points_desc),
+                "conditions": "Programa de puntos"
+            })
+    
+    return {
+        "id": product_id,
+        "name": item.name,
+        "description": description,
+        "price": price,
+        "unit": "unidad",
+        "category": item.section_name or "General",
+        "stock": None,  # Stock not available from PDF
+        "promotions": promotions,
+        "tags": tags
+    }
+
+
+def _save_items_to_catalog_json(items: list[CatalogItem]) -> None:
+    """Save catalog items to the catalog.json file, replacing existing content.
+    
+    Uses atomic file replacement to prevent data loss: writes to a temporary
+    file first, then renames it to the target path.
+    
+    Args:
+        items: List of CatalogItem objects to save.
+    """
+    import tempfile
+    import os
+    
+    products = []
+    for idx, item in enumerate(items, start=1):
+        product_dict = _catalog_item_to_product_dict(item, idx)
+        products.append(product_dict)
+    
+    # Create a backup of the existing file if it exists
+    backup_path = None
+    if _CATALOG_JSON_PATH.exists():
+        backup_path = _CATALOG_JSON_PATH.with_suffix(".json.bak")
+        try:
+            shutil.copy2(_CATALOG_JSON_PATH, backup_path)
+            logger.debug("Created backup at %s", backup_path)
+        except Exception as backup_exc:
+            logger.warning("Failed to create backup: %s", backup_exc)
+            backup_path = None
+    
+    # Write to a temporary file first, then atomically rename
+    temp_fd = None
+    temp_path = None
+    try:
+        # Create temp file in the same directory for atomic rename
+        temp_fd, temp_path = tempfile.mkstemp(
+            suffix=".json.tmp",
+            dir=_CATALOG_JSON_PATH.parent
+        )
+        
+        with os.fdopen(temp_fd, "w", encoding="utf-8") as f:
+            json.dump(products, f, ensure_ascii=False, indent=2)
+        temp_fd = None  # Closed by os.fdopen
+        
+        # Atomic rename
+        os.replace(temp_path, _CATALOG_JSON_PATH)
+        temp_path = None  # Successfully renamed
+        
+        logger.info("Saved %d products to catalog.json", len(products))
+        
+        # Remove backup on success
+        if backup_path and backup_path.exists():
+            try:
+                backup_path.unlink()
+            except Exception:
+                pass  # Not critical
+                
+    except Exception as exc:
+        logger.error("Failed to save catalog.json: %s", exc)
+        
+        # Restore from backup if available
+        if backup_path and backup_path.exists():
+            try:
+                shutil.copy2(backup_path, _CATALOG_JSON_PATH)
+                logger.info("Restored catalog.json from backup")
+            except Exception as restore_exc:
+                logger.error("Failed to restore from backup: %s", restore_exc)
+        
+        raise
+    finally:
+        # Clean up temp file if it still exists
+        if temp_fd is not None:
+            try:
+                os.close(temp_fd)
+            except Exception:
+                pass
+        if temp_path and Path(temp_path).exists():
+            try:
+                Path(temp_path).unlink()
+            except Exception:
+                pass
 
 
 class FileValidationError(Exception):
@@ -417,6 +597,19 @@ class CatalogImportService:
         catalog_import.summary.new_items_count = new_count
         catalog_import.summary.updated_items_count = updated_count
         catalog_import.summary.changed_prices_count = price_changes
+
+        # Save items to catalog.json (replacing existing content)
+        if parse_result.items:
+            try:
+                _save_items_to_catalog_json(parse_result.items)
+                catalog_import.add_log(
+                    f"Saved {len(parse_result.items)} products to catalog.json"
+                )
+            except Exception as save_exc:
+                logger.exception("Failed to save to catalog.json: %s", save_exc)
+                catalog_import.add_log(f"Warning: Failed to save to catalog.json: {save_exc}")
+                catalog_import.summary.warnings.append(f"Failed to save to catalog.json: {save_exc}")
+                catalog_import.summary.warnings_count += 1
 
         catalog_import.add_log(
             f"Applied changes: {new_count} new, {updated_count} updated, "

@@ -15,7 +15,12 @@
         "conditions": "Por cantidad mínima de 10 unidades"
       }
     ],
-    "tags": ["yerba", "mate", "canarias", "500g"]
+    "tags": [
+      "yerba",
+      "mate",
+      "canarias",
+      "500g"
+    ]
   },
   {
     "id": "P002",
@@ -33,7 +38,12 @@
         "conditions": "Por cantidad mínima de 6 unidades"
       }
     ],
-    "tags": ["yerba", "mate", "canarias", "1kg"]
+    "tags": [
+      "yerba",
+      "mate",
+      "canarias",
+      "1kg"
+    ]
   },
   {
     "id": "P003",
@@ -44,7 +54,12 @@
     "category": "Accesorios Mate",
     "stock": 45,
     "promotions": [],
-    "tags": ["termo", "stanley", "acero", "1 litro"]
+    "tags": [
+      "termo",
+      "stanley",
+      "acero",
+      "1 litro"
+    ]
   },
   {
     "id": "P004",
@@ -61,7 +76,12 @@
         "conditions": "Al comprar Mate Calabaza + Termo Stanley juntos"
       }
     ],
-    "tags": ["mate", "calabaza", "bombilla", "curado"]
+    "tags": [
+      "mate",
+      "calabaza",
+      "bombilla",
+      "curado"
+    ]
   },
   {
     "id": "P005",
@@ -79,7 +99,12 @@
         "conditions": "Por cantidad mínima de 6 bolsas"
       }
     ],
-    "tags": ["azúcar", "azucar", "refinada", "1kg"]
+    "tags": [
+      "azúcar",
+      "azucar",
+      "refinada",
+      "1kg"
+    ]
   },
   {
     "id": "P006",
@@ -97,7 +122,14 @@
         "conditions": "Comprando 2 paquetes, el segundo tiene 50% de descuento"
       }
     ],
-    "tags": ["café", "cafe", "molido", "unión", "union", "250g"]
+    "tags": [
+      "café",
+      "cafe",
+      "molido",
+      "unión",
+      "union",
+      "250g"
+    ]
   },
   {
     "id": "P007",
@@ -108,7 +140,13 @@
     "category": "Café e Infusiones",
     "stock": 120,
     "promotions": [],
-    "tags": ["té", "te", "lipton", "saquitos", "infusión"]
+    "tags": [
+      "té",
+      "te",
+      "lipton",
+      "saquitos",
+      "infusión"
+    ]
   },
   {
     "id": "P008",
@@ -124,7 +162,12 @@
         "conditions": "Promo 4x3 en pack Oreo"
       }
     ],
-    "tags": ["galletitas", "oreo", "pack", "crema"]
+    "tags": [
+      "galletitas",
+      "oreo",
+      "pack",
+      "crema"
+    ]
   },
   {
     "id": "P009",
@@ -142,7 +185,13 @@
         "conditions": "Comprando 12 unidades, descuento de $400 en total"
       }
     ],
-    "tags": ["agua", "mineral", "salus", "sin gas", "1.5l"]
+    "tags": [
+      "agua",
+      "mineral",
+      "salus",
+      "sin gas",
+      "1.5l"
+    ]
   },
   {
     "id": "P010",
@@ -160,6 +209,13 @@
         "conditions": "Por cantidad mínima de 3 botellas"
       }
     ],
-    "tags": ["detergente", "magistral", "limpieza", "vajilla", "limón", "limon"]
+    "tags": [
+      "detergente",
+      "magistral",
+      "limpieza",
+      "vajilla",
+      "limón",
+      "limon"
+    ]
   }
 ]
