@@ -294,21 +294,17 @@ def _extract_items_from_table(
             continue
         cell_norm = _normalize_text(cell)
         
-        if "6" in cell_norm and "cuota" in cell_norm:
-            col_map["installments_6"] = idx
-        elif "15" in cell_norm and "cuota" in cell_norm:
+        if "15" in cell_norm and "cuota" in cell_norm:
             col_map["installments_15"] = idx
         elif "12" in cell_norm and "cuota" in cell_norm:
             col_map["installments_12"] = idx
         elif "10" in cell_norm and "cuota" in cell_norm:
             col_map["installments_10"] = idx
-        elif "18" in cell_norm and "cuota" in cell_norm:
-            col_map["installments_18"] = idx
         elif "psvp" in cell_norm and "lista" in cell_norm:
             col_map["psvp_lista"] = idx
         elif "psvp" in cell_norm and "negocio" in cell_norm:
             col_map["psvp_negocio"] = idx
-        elif "preferencial" in cell_norm or "precio" in cell_norm and "pref" in cell_norm:
+        elif "preferencial" in cell_norm or ("precio" in cell_norm and "pref" in cell_norm):
             col_map["precio_preferencial"] = idx
         elif "essen" in cell_norm and "punto" in cell_norm:
             col_map["puntos_essen_plus"] = idx
@@ -370,7 +366,6 @@ def _extract_items_from_table(
                 return row[idx] if isinstance(row[idx], str) else str(row[idx]) if row[idx] is not None else None
             return None
         
-        # Note: installments_6 is not used as CatalogPrice model doesn't have that field
         installments_15 = _parse_price_value(get_cell("installments_15"))
         installments_12 = _parse_price_value(get_cell("installments_12"))
         installments_10 = _parse_price_value(get_cell("installments_10"))
@@ -397,7 +392,6 @@ def _extract_items_from_table(
         if psvp_lista or puntos or installments_12:
             price = CatalogPrice(
                 sku=skus[0] if skus else None,
-                installments_18=None,  # Not in this PDF format
                 installments_15=installments_15,
                 installments_12=installments_12,
                 installments_10=installments_10,
@@ -649,15 +643,19 @@ class PDFParser:
                     if page_num <= page.page_number:
                         current_section = section_name
 
+                # Track items extracted from tables on this page
+                table_items_count = 0
+                
                 # First, try to extract items from tables (preferred for catalog PDFs)
                 for table in page.tables:
                     table_items = _extract_items_from_table(
                         table, page.page_number, current_section
                     )
                     result.items.extend(table_items)
+                    table_items_count += len(table_items)
 
-                # If no items from tables, fall back to block extraction
-                if not result.items:
+                # If no items from tables on this page, fall back to block extraction
+                if table_items_count == 0:
                     items = _extract_items_from_blocks(page.blocks, current_section)
                     result.items.extend(items)
 

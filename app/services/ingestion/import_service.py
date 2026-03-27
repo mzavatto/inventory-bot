@@ -126,19 +126,82 @@ def _catalog_item_to_product_dict(item: CatalogItem, idx: int) -> dict:
 def _save_items_to_catalog_json(items: list[CatalogItem]) -> None:
     """Save catalog items to the catalog.json file, replacing existing content.
     
+    Uses atomic file replacement to prevent data loss: writes to a temporary
+    file first, then renames it to the target path.
+    
     Args:
         items: List of CatalogItem objects to save.
     """
+    import tempfile
+    import os
+    
     products = []
     for idx, item in enumerate(items, start=1):
         product_dict = _catalog_item_to_product_dict(item, idx)
         products.append(product_dict)
     
-    # Write to catalog.json
-    with open(_CATALOG_JSON_PATH, "w", encoding="utf-8") as f:
-        json.dump(products, f, ensure_ascii=False, indent=2)
+    # Create a backup of the existing file if it exists
+    backup_path = None
+    if _CATALOG_JSON_PATH.exists():
+        backup_path = _CATALOG_JSON_PATH.with_suffix(".json.bak")
+        try:
+            shutil.copy2(_CATALOG_JSON_PATH, backup_path)
+            logger.debug("Created backup at %s", backup_path)
+        except Exception as backup_exc:
+            logger.warning("Failed to create backup: %s", backup_exc)
+            backup_path = None
     
-    logger.info("Saved %d products to catalog.json", len(products))
+    # Write to a temporary file first, then atomically rename
+    temp_fd = None
+    temp_path = None
+    try:
+        # Create temp file in the same directory for atomic rename
+        temp_fd, temp_path = tempfile.mkstemp(
+            suffix=".json.tmp",
+            dir=_CATALOG_JSON_PATH.parent
+        )
+        
+        with os.fdopen(temp_fd, "w", encoding="utf-8") as f:
+            json.dump(products, f, ensure_ascii=False, indent=2)
+        temp_fd = None  # Closed by os.fdopen
+        
+        # Atomic rename
+        os.replace(temp_path, _CATALOG_JSON_PATH)
+        temp_path = None  # Successfully renamed
+        
+        logger.info("Saved %d products to catalog.json", len(products))
+        
+        # Remove backup on success
+        if backup_path and backup_path.exists():
+            try:
+                backup_path.unlink()
+            except Exception:
+                pass  # Not critical
+                
+    except Exception as exc:
+        logger.error("Failed to save catalog.json: %s", exc)
+        
+        # Restore from backup if available
+        if backup_path and backup_path.exists():
+            try:
+                shutil.copy2(backup_path, _CATALOG_JSON_PATH)
+                logger.info("Restored catalog.json from backup")
+            except Exception as restore_exc:
+                logger.error("Failed to restore from backup: %s", restore_exc)
+        
+        raise
+    finally:
+        # Clean up temp file if it still exists
+        if temp_fd is not None:
+            try:
+                os.close(temp_fd)
+            except Exception:
+                pass
+        if temp_path and Path(temp_path).exists():
+            try:
+                Path(temp_path).unlink()
+            except Exception:
+                pass
 
 
 class FileValidationError(Exception):
