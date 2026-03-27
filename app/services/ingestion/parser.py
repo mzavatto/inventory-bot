@@ -1,6 +1,14 @@
 """PDF parsing service for catalog ingestion.
 
-Implements structured PDF text extraction with OCR fallback.
+Uses pdfplumber's positional word extraction to correctly parse the
+two-column layout of Essen price-list catalogs:
+  • Left column  (~0–45 % of page width): product names, variants, SKUs
+  • Right column (~45–100 %):             price table (18C / 15C / 12C / 10C /
+                                           PSVP LISTA / NEGOCIO / PREF /
+                                           PUNTOS E+ / PUNTOS / PUNTOS XL)
+
+Both columns are read top-to-bottom independently, then zipped by index so
+that product-block N is matched with price-row N.
 """
 from __future__ import annotations
 
@@ -15,7 +23,7 @@ if TYPE_CHECKING:
 
 from app.admin.models import (
     CatalogItem,
-    CatalogItemComponent,
+    CatalogItemComponent,  # noqa: F401 – kept for public re-export
     CatalogItemSKU,
     CatalogMetadata,
     CatalogPrice,
@@ -26,9 +34,10 @@ from app.admin.models import (
 
 logger = logging.getLogger(__name__)
 
-# Version of the parser for tracking
-PARSER_VERSION = "1.0.0"
+PARSER_VERSION = "1.2.0"
 
+
+# ── Public dataclasses (interface unchanged) ──────────────────────────────────
 
 @dataclass
 class ExtractedBlock:
@@ -37,9 +46,9 @@ class ExtractedBlock:
     page_number: int
     text: str
     bbox: tuple[float, float, float, float] | None = None
-    block_type: str = "text"  # text, table, image
+    block_type: str = "text"
     confidence: float = 1.0
-    extraction_method: str = "structured"  # structured, ocr
+    extraction_method: str = "structured"
 
 
 @dataclass
@@ -70,229 +79,452 @@ class ParseResult:
     errors: list[str] = field(default_factory=list)
 
 
-def _normalize_text(text: str) -> str:
-    """Normalize text by removing accents and converting to lowercase."""
+# ── Constants ─────────────────────────────────────────────────────────────────
+
+# Token classification
+_PRICE_TOKEN_RE = re.compile(r"^\$\s*[\d.,]+$")
+_PLAIN_NUMBER_RE = re.compile(r"^[\d.,]+$")
+_DASH_RE = re.compile(r"^[-–]$")
+_SKU_RE = re.compile(r"^\d{7,9}$")
+
+# Capacity-only line: "2,8 LTS", "3 LTS", "1,7 LTS"
+_CAPACITY_LINE_RE = re.compile(
+    r"^(\d+[,.]\d*|\d+)\s*(?:lt?s?|litros?)\s*$", re.IGNORECASE
+)
+
+# Boilerplate phrases found in column-header rows
+_BOILERPLATE_PHRASES = (
+    "cuotas sin inter",
+    "psvp lista",
+    "psvp negocio",
+    "precio preferencial",
+    "puntos essen",
+    "puntos xl",
+    "sin interés",
+    "sin interes",
+)
+
+# Single-token column-header words (only match when the whole row is just these)
+_BOILERPLATE_SINGLE_TOKENS = frozenset(
+    {
+        "psvp", "puntos", "preferencial", "negocio", "lista",
+        "essen+", "precio", "cuotas", "interés", "interes",
+    }
+)
+
+# Section name: normalised key → canonical display string
+_SECTION_MAP: dict[str, str] = {
+    "destacados": "DESTACADOS",
+    "linea contemporanea": "LÍNEA CONTEMPORÁNEA",
+    "contemporanea": "LÍNEA CONTEMPORÁNEA",
+    "linea rosa": "LÍNEA ROSA",
+    "linea nuit": "LÍNEA NUIT",
+    "especiales essen": "LÍNEA ESPECIALES ESSEN",
+    "complementos": "COMPLEMENTOS",
+    "bazar premium": "BAZAR PREMIUM",
+    "repuestos": "REPUESTOS",
+    "destacados - essen+": "DESTACADOS - ESSEN+",
+    "destacados essen+": "DESTACADOS - ESSEN+",
+    "combo essen+": "COMBO ESSEN+",
+}
+
+
+# ── Pure helpers ──────────────────────────────────────────────────────────────
+
+def _norm(text: str) -> str:
+    """Lowercase + strip accents."""
     nfkd = unicodedata.normalize("NFKD", text.lower())
     return "".join(c for c in nfkd if not unicodedata.combining(c))
 
 
-def _clean_text(text: str) -> str:
-    """Clean extracted text by removing extra whitespace."""
-    text = re.sub(r"\s+", " ", text)
-    return text.strip()
+def _clean(text: str) -> str:
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _row_text(row: list[dict]) -> str:
+    return _clean(" ".join(w["text"] for w in row))
+
+
+def _group_into_rows(
+    words: list[dict], y_tol: float = 4.0
+) -> list[list[dict]]:
+    """Group words into visual rows by proximity of their top-Y coordinate."""
+    if not words:
+        return []
+    sorted_words = sorted(words, key=lambda w: (w["top"], w["x0"]))
+    rows: list[list[dict]] = []
+    current: list[dict] = [sorted_words[0]]
+    base_y = sorted_words[0]["top"]
+    for w in sorted_words[1:]:
+        if abs(w["top"] - base_y) <= y_tol:
+            current.append(w)
+        else:
+            rows.append(sorted(current, key=lambda x: x["x0"]))
+            current = [w]
+            base_y = w["top"]
+    if current:
+        rows.append(sorted(current, key=lambda x: x["x0"]))
+    return rows
+
+
+def _is_boilerplate_row(row: list[dict]) -> bool:
+    """Return True if this row is a price-table column header / boilerplate."""
+    text = _row_text(row).lower()
+    if any(phrase in text for phrase in _BOILERPLATE_PHRASES):
+        return True
+    # Row made entirely of boilerplate single-tokens
+    tokens = [w["text"].lower() for w in row]
+    if tokens and all(t in _BOILERPLATE_SINGLE_TOKENS for t in tokens):
+        return True
+    return False
+
+
+def _is_price_data_row(row: list[dict]) -> bool:
+    """Return True if this row contains at least one price ($) token."""
+    return any(w["text"].startswith("$") for w in row)
+
+
+def _is_sku_line(text: str) -> bool:
+    """Return True if the line consists of one or more 7–9-digit SKU codes."""
+    if _SKU_RE.match(text.strip()):
+        return True
+    parts = re.split(r"[\s\-+]+", text.strip())
+    return len(parts) > 1 and all(_SKU_RE.match(p) for p in parts if p)
+
+
+def _extract_skus_from_text(text: str) -> list[str]:
+    return re.findall(r"\b(\d{7,9})\b", text)
+
+
+def _parse_ars_number(text: str) -> float:
+    """Parse a Spanish-format number to float.
+
+    In Essen catalog prices the dot is a thousands separator
+    (e.g. '27.446' → 27 446, '1.201.038' → 1 201 038).
+    Trailing commas are treated as decimal separators.
+    """
+    text = text.replace("$", "").strip()
+    if "," in text:
+        # comma = decimal separator → remove thousand-dots first
+        text = text.replace(".", "").replace(",", ".")
+    else:
+        # dot = thousands separator → remove all dots
+        text = text.replace(".", "")
+    return float(text)
+
+
+def _detect_section_on_page(page_text: str) -> str | None:
+    """Return the canonical section name if found in the page text."""
+    norm_text = _norm(page_text)
+    # Match longest key first to prefer "destacados essen+" over "destacados"
+    for key in sorted(_SECTION_MAP, key=len, reverse=True):
+        if key in norm_text:
+            return _SECTION_MAP[key]
+    return None
 
 
 def _extract_metadata_from_text(text: str, filename: str) -> CatalogMetadata:
-    """Extract catalog metadata from text content."""
-    metadata = CatalogMetadata(source_file_name=filename, parser_version=PARSER_VERSION)
-
-    # Try to extract catalog name (often at the beginning)
-    lines = text.split("\n")[:10]  # Check first 10 lines
-    for line in lines:
-        line = line.strip()
-        if len(line) > 5 and len(line) < 100:
-            if "catálogo" in line.lower() or "catalogo" in line.lower():
-                metadata.catalog_name = line
-                break
-            if "essen" in line.lower():
-                metadata.catalog_name = line
-                break
-
-    # Try to extract cycle/edition
-    cycle_pattern = r"(?:ciclo|campaña|edición|edition)\s*[:\s]*(\d+|\w+)"
-    cycle_match = re.search(cycle_pattern, text, re.IGNORECASE)
-    if cycle_match:
-        metadata.cycle = cycle_match.group(1)
-
-    # Try to extract date
-    date_pattern = r"\d{1,2}[/\-]\d{1,2}[/\-]\d{2,4}"
-    date_match = re.search(date_pattern, text)
+    metadata = CatalogMetadata(
+        source_file_name=filename, parser_version=PARSER_VERSION
+    )
+    date_match = re.search(r"\d{1,2}[/\-]\d{1,2}[/\-]\d{2,4}", text)
     if date_match:
         metadata.updated_date = date_match.group()
-
     return metadata
 
 
-# Known section names for Essen catalogs
-KNOWN_SECTIONS = [
-    "destacados",
-    "línea contemporánea",
-    "linea contemporanea",
-    "línea rosa",
-    "linea rosa",
-    "línea nuit",
-    "linea nuit",
-    "complementos",
-    "bazar premium",
-    "repuestos",
-    "destacados essen+",
-    "essen+",
-    "ofertas",
-    "promociones",
-    "combos",
-]
+def _extract_promotions_from_text(text: str) -> list[CatalogPromotion]:
+    # This catalog has no explicit bank promotions
+    return []
 
 
-def _detect_sections_from_text(
-    text: str, page_number: int
-) -> list[tuple[str, int]]:
-    """Detect section headers from text content."""
-    sections: list[tuple[str, int]] = []
-    lines = text.split("\n")
+# ── Core page-parsing logic ───────────────────────────────────────────────────
 
-    for line in lines:
-        line_clean = line.strip()
-        line_normalized = _normalize_text(line_clean)
+def _group_name_rows_into_blocks(
+    rows: list[list[dict]],
+) -> list[list[list[dict]]]:
+    """Cluster name-zone rows into per-product blocks.
 
-        for section_name in KNOWN_SECTIONS:
-            if section_name in line_normalized and len(line_clean) < 60:
-                sections.append((line_clean, page_number))
-                break
+    A block boundary is detected when:
+    - A SKU line appears (it ends the current block).
+    - A vertical gap > 12 pt exists between consecutive rows.
+    """
+    if not rows:
+        return []
 
-    return sections
+    blocks: list[list[list[dict]]] = []
+    current: list[list[dict]] = []
+    prev_bottom: float | None = None
+
+    for row in rows:
+        row_text = _row_text(row)
+        row_top = min(w["top"] for w in row)
+        row_bottom = max(w.get("bottom", w["top"] + 10) for w in row)
+
+        # Large vertical gap → start a new block
+        if prev_bottom is not None and (row_top - prev_bottom) > 12:
+            if current:
+                blocks.append(current)
+            current = []
+
+        current.append(row)
+        prev_bottom = row_bottom
+
+        # SKU line closes the current block
+        if _is_sku_line(row_text):
+            blocks.append(current)
+            current = []
+            prev_bottom = None
+
+    if current:
+        blocks.append(current)
+
+    return [b for b in blocks if b]
 
 
-# Patterns for extracting item information
-SKU_PATTERN = re.compile(r"\b([A-Z]{2,4}[\s\-]?\d{3,6})\b", re.IGNORECASE)
-PRICE_PATTERN = re.compile(r"\$\s?([\d.,]+)")
-DIMENSION_PATTERN = re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:x|X|×)\s*(\d+(?:[.,]\d+)?)")
-CAPACITY_PATTERN = re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:lt?s?|litros?)", re.IGNORECASE)
-POINTS_PATTERN = re.compile(r"(\d+)\s*(?:pts?|puntos)", re.IGNORECASE)
+def _parse_price_row(row: list[dict]) -> CatalogPrice | None:
+    """Parse a right-zone price row into a CatalogPrice.
+
+    Expected column order (left → right):
+      0: 18 cuotas   1: 15 cuotas   2: 12 cuotas   3: 10 cuotas
+      4: PSVP LISTA  5: PSVP NEGOCIO  6: PRECIO PREFERENCIAL
+      7: PUNTOS ESSEN+  8: PUNTOS  9: PUNTOS XL
+    """
+    tokens = sorted(row, key=lambda w: w["x0"])
+    values: list[float | None] = []
+    i = 0
+    while i < len(tokens):
+        t = tokens[i]["text"].strip()
+
+        if t == "$":
+            # The price number is the next token
+            if i + 1 < len(tokens):
+                try:
+                    values.append(_parse_ars_number(tokens[i + 1]["text"]))
+                except (ValueError, ZeroDivisionError):
+                    values.append(None)
+                i += 2
+            else:
+                i += 1
+            continue
+
+        if t.startswith("$"):
+            try:
+                values.append(_parse_ars_number(t[1:].strip()))
+            except (ValueError, ZeroDivisionError):
+                values.append(None)
+            i += 1
+            continue
+
+        if _DASH_RE.match(t):
+            values.append(None)
+            i += 1
+            continue
+
+        if _PLAIN_NUMBER_RE.match(t):
+            try:
+                values.append(_parse_ars_number(t))
+            except (ValueError, ZeroDivisionError):
+                pass
+            i += 1
+            continue
+
+        i += 1
+
+    if not any(v is not None for v in values):
+        return None
+
+    def _v(idx: int) -> float | None:
+        return values[idx] if idx < len(values) else None
+
+    def _vi(idx: int) -> int | None:
+        val = _v(idx)
+        if val is not None:
+            try:
+                return int(val)
+            except (ValueError, TypeError):
+                return None
+        return None
+
+    return CatalogPrice(
+        currency="ARS",
+        installments_18=_v(0),
+        installments_15=_v(1),
+        installments_12=_v(2),
+        installments_10=_v(3),
+        psvp_lista=_v(4),
+        psvp_negocio=_v(5),
+        precio_preferencial=_v(6),
+        puntos_essen_plus=_vi(7),
+        puntos=_vi(8),
+        puntos_xl=_vi(9),
+    )
 
 
-def _extract_items_from_blocks(
-    blocks: list[ExtractedBlock], current_section: str
+def _block_to_catalog_item(
+    block: list[list[dict]],
+    price: CatalogPrice | None,
+    section_name: str,
+    page_num: int,
+) -> CatalogItem | None:
+    """Convert a name-zone product block into a CatalogItem."""
+    if not block:
+        return None
+
+    name_lines: list[str] = []
+    skus: list[CatalogItemSKU] = []
+    capacity: float | None = None
+    size_cm = ""
+
+    for row in block:
+        text = _row_text(row)
+        if not text:
+            continue
+
+        # Skip section headers that may bleed into the name zone
+        if any(k in _norm(text) for k in _SECTION_MAP):
+            continue
+
+        # SKU line
+        if _is_sku_line(text):
+            for code in _extract_skus_from_text(text):
+                skus.append(CatalogItemSKU(sku=code))
+            continue
+
+        # Capacity-only line: "2,8 LTS"
+        cap_m = _CAPACITY_LINE_RE.match(text.strip())
+        if cap_m:
+            try:
+                capacity = float(cap_m.group(1).replace(",", "."))
+                if capacity < 100:  # sanity: no 200-litre pots
+                    size_cm = text.strip()
+            except ValueError:
+                pass
+            continue
+
+        # Everything else is part of the product name / description
+        name_lines.append(text)
+
+    if not name_lines:
+        return None
+
+    name = name_lines[0]
+    description = " | ".join(name_lines[1:]) if len(name_lines) > 1 else ""
+
+    # Item type heuristics
+    combined = " ".join(name_lines).lower()
+    if "combo" in combined or "kit" in combined:
+        item_type = ItemType.COMBO
+    elif section_name.upper() == "REPUESTOS":
+        item_type = ItemType.REPLACEMENT_PART
+    else:
+        item_type = ItemType.PRODUCT
+
+    # Attach first SKU to price record
+    if price and skus:
+        price.sku = skus[0].sku
+
+    prices = [price] if price else []
+
+    return CatalogItem(
+        item_type=item_type,
+        name=name,
+        display_name=name,
+        description=description,
+        section_name=section_name,
+        page_number=page_num,
+        capacity_liters=capacity,
+        size_cm=size_cm,
+        skus=skus,
+        prices=prices,
+        raw_extracted_text=f"{name_lines} | skus={[s.sku for s in skus]}"[:500],
+        extraction_confidence=0.9 if prices else 0.7,
+    )
+
+
+def _parse_page_items(
+    page,  # pdfplumber.page.Page
+    page_num: int,
+    section_name: str,
 ) -> list[CatalogItem]:
-    """Extract catalog items from text blocks."""
+    """Extract CatalogItems from a single PDF page using word positions."""
+    words: list[dict] = page.extract_words(x_tolerance=3, y_tolerance=3)
+    if not words:
+        return []
+
+    # ── Determine the X boundary between name zone and price zone ─────────────
+    # The price zone starts at the leftmost '$' token.
+    # We use the 10th-percentile X position to be robust against outliers.
+    price_xs = sorted(w["x0"] for w in words if w["text"].startswith("$"))
+    if not price_xs:
+        return []  # No prices on this page
+
+    p10_idx = max(0, len(price_xs) // 10)
+    price_zone_x = price_xs[p10_idx]
+    name_max_x = price_zone_x - 4  # 4 pt buffer
+
+    # If the split is too far left (< 25% of page), the layout is unusual –
+    # fall back to empty to avoid incorrect matches.
+    if name_max_x < page.width * 0.20:
+        logger.debug(
+            "Page %d: price zone starts too early (x=%.1f) – skipping",
+            page_num,
+            price_zone_x,
+        )
+        return []
+
+    # ── Split words by zone ───────────────────────────────────────────────────
+    name_words = [w for w in words if w["x0"] < name_max_x]
+    price_words = [w for w in words if w["x0"] >= name_max_x]
+
+    # ── Group into visual rows ────────────────────────────────────────────────
+    name_rows = _group_into_rows(name_words, y_tol=4)
+    price_rows_all = _group_into_rows(price_words, y_tol=6)
+
+    # ── Filter boilerplate ────────────────────────────────────────────────────
+    name_rows = [r for r in name_rows if not _is_boilerplate_row(r)]
+    price_rows_filtered = [
+        r
+        for r in price_rows_all
+        if _is_price_data_row(r) and not _is_boilerplate_row(r)
+    ]
+
+    # ── Group name rows into per-product blocks ───────────────────────────────
+    product_blocks = _group_name_rows_into_blocks(name_rows)
+
+    # ── Parse price rows ──────────────────────────────────────────────────────
+    parsed_prices: list[CatalogPrice] = []
+    for row in price_rows_filtered:
+        p = _parse_price_row(row)
+        if p is not None:
+            parsed_prices.append(p)
+
+    if len(product_blocks) != len(parsed_prices):
+        logger.debug(
+            "Page %d: %d product blocks vs %d price rows",
+            page_num,
+            len(product_blocks),
+            len(parsed_prices),
+        )
+
+    # ── Zip and build items ───────────────────────────────────────────────────
     items: list[CatalogItem] = []
-
-    for block in blocks:
-        text = block.text
-
-        # Skip very short blocks
-        if len(text) < 10:
-            continue
-
-        # Look for SKU patterns
-        sku_matches = SKU_PATTERN.findall(text)
-        if not sku_matches:
-            continue
-
-        # Create item for each detected SKU
-        for sku in sku_matches:
-            sku_clean = sku.upper().replace(" ", "").replace("-", "")
-
-            # Extract name (text before SKU or first line)
-            lines = text.split("\n")
-            name = lines[0].strip() if lines else ""
-
-            # Clean up name
-            name = re.sub(SKU_PATTERN, "", name).strip()
-            name = re.sub(r"^\s*[-–•]\s*", "", name).strip()
-
-            if not name or len(name) < 3:
-                name = f"Item {sku_clean}"
-
-            # Determine item type
-            item_type = ItemType.PRODUCT
-            text_lower = text.lower()
-            if "combo" in text_lower or "kit" in text_lower:
-                item_type = ItemType.COMBO
-            elif "repuesto" in text_lower or "reemplazo" in text_lower:
-                item_type = ItemType.REPLACEMENT_PART
-            elif "bundle" in text_lower or "pack" in text_lower:
-                item_type = ItemType.BUNDLE
-
-            # Extract dimensions
-            dimensions = ""
-            dim_match = DIMENSION_PATTERN.search(text)
-            if dim_match:
-                dimensions = f"{dim_match.group(1)} x {dim_match.group(2)}"
-
-            # Extract capacity
-            capacity: float | None = None
-            cap_match = CAPACITY_PATTERN.search(text)
-            if cap_match:
-                capacity = float(cap_match.group(1).replace(",", "."))
-
-            # Extract prices
-            prices: list[CatalogPrice] = []
-            price_matches = PRICE_PATTERN.findall(text)
-            if price_matches:
-                price_value = float(price_matches[0].replace(".", "").replace(",", "."))
-                prices.append(
-                    CatalogPrice(
-                        sku=sku_clean,
-                        psvp_lista=price_value,
-                    )
-                )
-
-            # Extract points
-            points: int | None = None
-            points_match = POINTS_PATTERN.search(text)
-            if points_match:
-                points = int(points_match.group(1))
-                if prices:
-                    prices[0].puntos = points
-
-            item = CatalogItem(
-                item_type=item_type,
-                name=name,
-                section_name=current_section,
-                page_number=block.page_number,
-                raw_extracted_text=text[:500],  # Limit raw text size
-                extraction_confidence=block.confidence,
-                dimensions=dimensions,
-                capacity_liters=capacity,
-                skus=[CatalogItemSKU(sku=sku_clean)],
-                prices=prices,
-            )
-
+    for idx, block in enumerate(product_blocks):
+        price = parsed_prices[idx] if idx < len(parsed_prices) else None
+        item = _block_to_catalog_item(block, price, section_name, page_num)
+        if item is not None:
             items.append(item)
 
     return items
 
 
-def _extract_promotions_from_text(text: str) -> list[CatalogPromotion]:
-    """Extract promotion information from text."""
-    promotions: list[CatalogPromotion] = []
-
-    # Look for bank promotion patterns
-    bank_pattern = re.compile(
-        r"(banco|visa|mastercard|amex|naranja|cabal|bbva|galicia|santander|macro)\s+"
-        r"(\d+)\s*(?:cuotas?|pagos?)",
-        re.IGNORECASE,
-    )
-
-    for match in bank_pattern.finditer(text):
-        bank = match.group(1).title()
-        installments = match.group(2)
-
-        promo = CatalogPromotion(
-            description=f"{bank} - {installments} cuotas",
-            bank_name=bank,
-            installment_conditions=f"{installments} cuotas",
-        )
-        promotions.append(promo)
-
-    # Look for discount patterns
-    discount_pattern = re.compile(r"(\d+)\s*%\s*(?:off|descuento|dto)", re.IGNORECASE)
-    for match in discount_pattern.finditer(text):
-        discount = float(match.group(1))
-        promo = CatalogPromotion(
-            description=f"{int(discount)}% de descuento",
-            discount_percent=discount,
-        )
-        promotions.append(promo)
-
-    return promotions
-
+# ── PDFParser class ───────────────────────────────────────────────────────────
 
 class PDFParser:
-    """Parser for catalog PDF files.
+    """Parser for Essen catalog PDF files.
 
-    Uses structured text extraction first, with OCR fallback for
-    image-based pages or unreadable regions.
+    Uses positioned word extraction to correctly associate product names
+    with their price rows from a two-column layout.
     """
 
     def __init__(self) -> None:
@@ -301,33 +533,22 @@ class PDFParser:
         self._check_dependencies()
 
     def _check_dependencies(self) -> None:
-        """Check which PDF extraction libraries are available."""
         try:
-            import pdfplumber
+            import pdfplumber  # noqa: F401
 
             self._pdfplumber_available = True
         except ImportError:
-            logger.warning(
-                "pdfplumber not installed. Structured PDF extraction unavailable."
-            )
+            logger.warning("pdfplumber not installed. PDF extraction unavailable.")
 
         try:
-            import pytesseract
+            import pytesseract  # noqa: F401
 
             self._pytesseract_available = True
         except ImportError:
             logger.warning("pytesseract not installed. OCR fallback unavailable.")
 
     def parse(self, pdf_path: str, filename: str) -> ParseResult:
-        """Parse a PDF catalog file.
-
-        Args:
-            pdf_path: Path to the PDF file.
-            filename: Original filename for metadata.
-
-        Returns:
-            ParseResult with extracted catalog data.
-        """
+        """Parse a catalog PDF and return a ParseResult."""
         result = ParseResult(success=False, parser_version=PARSER_VERSION)
 
         if not self._pdfplumber_available:
@@ -340,58 +561,72 @@ class PDFParser:
         try:
             import pdfplumber
 
-            pages = self._extract_pages_with_pdfplumber(pdf_path)
-            result.pages = pages
-
-            # Combine all text for metadata extraction
-            all_text = "\n".join(page.raw_text for page in pages)
-
-            # Extract metadata
-            result.metadata = _extract_metadata_from_text(all_text, filename)
-
-            # Detect sections
-            all_sections: list[tuple[str, int]] = []
-            for page in pages:
-                sections = _detect_sections_from_text(page.raw_text, page.page_number)
-                all_sections.extend(sections)
-
-            # Create section objects
-            section_map: dict[str, CatalogSection] = {}
-            for idx, (section_name, page_num) in enumerate(all_sections):
-                section_id = f"section_{idx:03d}"
-                section = CatalogSection(
-                    id=section_id,
-                    name=section_name,
-                    display_name=section_name,
-                    page_start=page_num,
-                )
-                section_map[_normalize_text(section_name)] = section
-                result.sections.append(section)
-
-            # Extract items from each page
+            all_text_parts: list[str] = []
             current_section = ""
-            for page in pages:
-                # Update current section if new one detected
-                for section_name, page_num in all_sections:
-                    if page_num <= page.page_number:
-                        current_section = section_name
+            section_idx = 0
+            seen_sections: dict[str, int] = {}
 
-                items = _extract_items_from_blocks(page.blocks, current_section)
-                result.items.extend(items)
+            with pdfplumber.open(pdf_path) as pdf:
+                for page_num, page in enumerate(pdf.pages, start=1):
+                    parsed_page = ParsedPage(page_number=page_num)
 
-            # Extract promotions
+                    page_text = page.extract_text() or ""
+                    parsed_page.raw_text = page_text
+                    all_text_parts.append(page_text)
+
+                    if page.images:
+                        parsed_page.has_images = True
+
+                    # ── Detect section ────────────────────────────────────────
+                    detected = _detect_section_on_page(page_text)
+                    if detected:
+                        if detected not in seen_sections:
+                            seen_sections[detected] = page_num
+                            result.sections.append(
+                                CatalogSection(
+                                    id=f"section_{section_idx:03d}",
+                                    name=detected,
+                                    display_name=detected,
+                                    page_start=page_num,
+                                )
+                            )
+                            section_idx += 1
+                        current_section = detected
+
+                    # ── Extract items ─────────────────────────────────────────
+                    items = _parse_page_items(page, page_num, current_section)
+
+                    # If positional extraction found nothing and the page has
+                    # images, try OCR as a last resort.
+                    if not items and parsed_page.has_images and self._pytesseract_available:
+                        ocr_text = self._extract_text_with_ocr(page)
+                        if ocr_text:
+                            parsed_page.raw_text = ocr_text
+                            parsed_page.used_ocr = True
+                            result.warnings.append(
+                                f"Page {page_num}: used OCR (image-based content)"
+                            )
+
+                    result.items.extend(items)
+                    result.pages.append(parsed_page)
+
+                    # Store blocks in ParsedPage for downstream inspection
+                    for item in items:
+                        parsed_page.blocks.append(
+                            ExtractedBlock(
+                                page_number=page_num,
+                                text=item.raw_extracted_text,
+                                confidence=item.extraction_confidence or 1.0,
+                            )
+                        )
+
+            all_text = "\n".join(all_text_parts)
+            result.metadata = _extract_metadata_from_text(all_text, filename)
             result.promotions = _extract_promotions_from_text(all_text)
 
-            # Collect prices
+            # Collect all prices
             for item in result.items:
                 result.prices.extend(item.prices)
-
-            # Add warnings for pages that needed OCR
-            for page in pages:
-                if page.used_ocr:
-                    result.warnings.append(
-                        f"Page {page.page_number}: Used OCR due to image-based content"
-                    )
 
             result.success = True
 
@@ -408,84 +643,30 @@ class PDFParser:
 
         return result
 
-    def _extract_pages_with_pdfplumber(self, pdf_path: str) -> list[ParsedPage]:
-        """Extract pages using pdfplumber for structured text extraction."""
-        import pdfplumber
-
-        pages: list[ParsedPage] = []
-
-        with pdfplumber.open(pdf_path) as pdf:
-            for page_num, page in enumerate(pdf.pages, start=1):
-                parsed_page = ParsedPage(page_number=page_num)
-
-                # Extract text
-                text = page.extract_text() or ""
-                parsed_page.raw_text = text
-
-                # Check for images
-                if page.images:
-                    parsed_page.has_images = True
-
-                # Create blocks from text
-                if text.strip():
-                    # Split into paragraphs/blocks
-                    paragraphs = text.split("\n\n")
-                    for para in paragraphs:
-                        if para.strip():
-                            block = ExtractedBlock(
-                                page_number=page_num,
-                                text=para.strip(),
-                                extraction_method="structured",
-                            )
-                            parsed_page.blocks.append(block)
-
-                # If no text extracted but has images, try OCR
-                if not text.strip() and page.images and self._pytesseract_available:
-                    ocr_text = self._extract_text_with_ocr(page)
-                    if ocr_text:
-                        parsed_page.raw_text = ocr_text
-                        parsed_page.used_ocr = True
-                        block = ExtractedBlock(
-                            page_number=page_num,
-                            text=ocr_text,
-                            extraction_method="ocr",
-                            confidence=0.8,  # Lower confidence for OCR
-                        )
-                        parsed_page.blocks.append(block)
-
-                pages.append(parsed_page)
-
-        return pages
-
     def _extract_text_with_ocr(self, page: "pdfplumber.page.Page") -> str:
-        """Extract text from a page using OCR as fallback.
-        
-        Args:
-            page: A pdfplumber Page object.
-        """
+        """Extract text from a page using Tesseract OCR as fallback."""
         try:
-            import pytesseract
-            from PIL import Image
             import io
 
-            # Convert page to image
+            import pytesseract
+            from PIL import Image  # noqa: F401
+
             image = page.to_image(resolution=300)
             pil_image = image.original
-
-            # Run OCR
             text = pytesseract.image_to_string(pil_image, lang="spa")
-            return _clean_text(text)
+            return _clean(text)
         except Exception as exc:
             logger.warning("OCR extraction failed: %s", exc)
             return ""
 
 
-# Singleton parser instance
+# ── Singleton ─────────────────────────────────────────────────────────────────
+
 _parser: PDFParser | None = None
 
 
 def get_parser() -> PDFParser:
-    """Get the PDF parser singleton."""
+    """Return the shared PDFParser singleton."""
     global _parser
     if _parser is None:
         _parser = PDFParser()

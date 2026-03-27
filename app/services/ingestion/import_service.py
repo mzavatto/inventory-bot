@@ -3,7 +3,9 @@ from __future__ import annotations
 
 import asyncio
 import hashlib
+import json
 import logging
+import re
 import shutil
 import uuid
 from datetime import datetime, timezone
@@ -22,6 +24,94 @@ from app.config import settings
 from app.services.ingestion.parser import PARSER_VERSION, ParseResult, get_parser
 
 logger = logging.getLogger(__name__)
+
+_CATALOG_JSON_PATH = Path(__file__).parent.parent.parent / "data" / "catalog.json"
+
+
+def _catalog_item_to_product_dict(item: CatalogItem) -> dict | None:
+    """Convert a CatalogItem to a Product-compatible dict.
+
+    Returns None if the item should be skipped (price-only rows, headers,
+    items without a price, etc.).
+    """
+    name = (item.display_name or item.name or "").strip()
+
+    # For multi-line names (combos), take the most descriptive line
+    if "\n" in name:
+        lines = [ln.strip() for ln in name.split("\n") if ln.strip()]
+        # Prefer the line that looks like a real product name (not a section header)
+        name = lines[0] if lines else name
+
+    # Skip rows whose "name" is just a price (e.g. "$ 33.497")
+    if re.match(r"^\$", name):
+        return None
+
+    # Skip very short / generic names
+    if len(name) < 3:
+        return None
+
+    # Resolve price: prefer the earliest entry (no valid_from = original catalog price)
+    price: float | None = None
+    for p in item.prices:
+        if p.psvp_lista is not None and p.valid_from is None:
+            price = p.psvp_lista
+            break
+    if price is None:
+        for p in item.prices:
+            if p.psvp_lista is not None:
+                price = p.psvp_lista
+                break
+
+    # Skip items without a price
+    if price is None:
+        return None
+
+    # Build description from available attributes
+    desc_parts: list[str] = []
+    if item.description:
+        desc_parts.append(item.description)
+    attrs: list[str] = []
+    for attr in (item.material, item.color, item.size_cm, item.dimensions):
+        if attr:
+            attrs.append(attr)
+    if item.capacity_liters:
+        attrs.append(f"{item.capacity_liters}L")
+    if attrs:
+        desc_parts.append(", ".join(attrs))
+    if item.section_name and not desc_parts:
+        desc_parts.append(f"Línea {item.section_name}")
+    description = ". ".join(desc_parts)
+
+    # Build tags from name words + category + attributes
+    tags: set[str] = set()
+    for word in re.findall(r"[a-záéíóúñA-ZÁÉÍÓÚÑ]+", name.lower()):
+        if len(word) > 2:
+            tags.add(word)
+    if item.section_name:
+        for word in re.findall(r"[a-záéíóúñ]+", item.section_name.lower()):
+            if len(word) > 2:
+                tags.add(word)
+    for extra in (item.material, item.color, item.line):
+        if extra:
+            for word in extra.lower().split():
+                if len(word) > 2:
+                    tags.add(word)
+    for sku_info in item.skus:
+        tags.add(sku_info.sku.lower())
+
+    item_id = item.id if item.id else item.fingerprint
+
+    return {
+        "id": item_id,
+        "name": name,
+        "description": description,
+        "price": price,
+        "unit": "unidad",
+        "category": item.section_name,
+        "stock": None,
+        "promotions": [],
+        "tags": sorted(tags),
+    }
 
 
 class FileValidationError(Exception):
@@ -418,6 +508,9 @@ class CatalogImportService:
         catalog_import.summary.updated_items_count = updated_count
         catalog_import.summary.changed_prices_count = price_changes
 
+        saved_count = self._save_catalog_json()
+        catalog_import.add_log(f"Saved {saved_count} products to catalog.json")
+
         catalog_import.add_log(
             f"Applied changes: {new_count} new, {updated_count} updated, "
             f"{price_changes} price entries"
@@ -450,6 +543,32 @@ class CatalogImportService:
         for price in new.prices:
             price.valid_from = datetime.now(timezone.utc)
             existing.prices.append(price)
+
+    def _save_catalog_json(self) -> int:
+        """Persist all known items to catalog.json in Product format and reload the service.
+
+        Returns the number of products written.
+        """
+        from app.services.catalog import catalog_service
+
+        products: list[dict] = []
+        seen_ids: set[str] = set()
+
+        for item in self._items_by_fingerprint.values():
+            product_dict = _catalog_item_to_product_dict(item)
+            if product_dict is None:
+                continue
+            item_id = product_dict["id"]
+            if item_id in seen_ids:
+                continue
+            seen_ids.add(item_id)
+            products.append(product_dict)
+
+        with open(_CATALOG_JSON_PATH, "w", encoding="utf-8") as f:
+            json.dump(products, f, ensure_ascii=False, indent=2)
+
+        catalog_service.reload()
+        return len(products)
 
     async def cancel_processing(self, import_id: str) -> bool:
         """Cancel a running import process.

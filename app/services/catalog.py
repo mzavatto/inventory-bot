@@ -2,11 +2,13 @@
 from __future__ import annotations
 
 import json
+import logging
 import unicodedata
 from pathlib import Path
 
 from app.models import Product
 
+logger = logging.getLogger(__name__)
 
 _CATALOG_PATH = Path(__file__).parent.parent / "data" / "catalog.json"
 
@@ -29,6 +31,11 @@ class CatalogService:
         with open(self._catalog_path, encoding="utf-8") as f:
             data = json.load(f)
         self._products = [Product(**item) for item in data]
+
+    def reload(self) -> None:
+        """Reload the catalog from disk (called after a catalog import)."""
+        self._load()
+        logger.info("Catalog reloaded: %d products loaded", len(self._products))
 
     def get_all(self) -> list[Product]:
         """Return all products in the catalog."""
