@@ -15,7 +15,6 @@ if TYPE_CHECKING:
 
 from app.admin.models import (
     CatalogItem,
-    CatalogItemComponent,
     CatalogItemSKU,
     CatalogMetadata,
     CatalogPrice,
@@ -27,7 +26,7 @@ from app.admin.models import (
 logger = logging.getLogger(__name__)
 
 # Version of the parser for tracking
-PARSER_VERSION = "1.0.0"
+PARSER_VERSION = "1.1.0"
 
 
 @dataclass
@@ -51,6 +50,24 @@ class ParsedPage:
     raw_text: str = ""
     has_images: bool = False
     used_ocr: bool = False
+    tables: list[list[list[str | None]]] = field(default_factory=list)
+
+
+@dataclass
+class TableRow:
+    """A row extracted from a PDF table."""
+
+    product_name: str
+    skus: list[str] = field(default_factory=list)
+    installments_6: float | None = None
+    installments_15: float | None = None
+    installments_12: float | None = None
+    installments_10: float | None = None
+    psvp_lista: float | None = None
+    psvp_negocio: float | None = None
+    precio_preferencial: float | None = None
+    puntos_essen_plus: int | None = None
+    puntos: int | None = None
 
 
 @dataclass
@@ -154,10 +171,269 @@ def _detect_sections_from_text(
 
 # Patterns for extracting item information
 SKU_PATTERN = re.compile(r"\b([A-Z]{2,4}[\s\-]?\d{3,6})\b", re.IGNORECASE)
+# Pattern for SKU codes in table format (just numeric, often multiple separated by spaces/dashes)
+TABLE_SKU_PATTERN = re.compile(r"\b(\d{5,8})\b")
 PRICE_PATTERN = re.compile(r"\$\s?([\d.,]+)")
 DIMENSION_PATTERN = re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:x|X|×)\s*(\d+(?:[.,]\d+)?)")
 CAPACITY_PATTERN = re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:lt?s?|litros?)", re.IGNORECASE)
 POINTS_PATTERN = re.compile(r"(\d+)\s*(?:pts?|puntos)", re.IGNORECASE)
+# Pattern for size in cm (e.g., "24cm", "28 cm")
+SIZE_PATTERN = re.compile(r"(\d+)\s*(?:cm|CM)", re.IGNORECASE)
+
+
+def _parse_price_value(cell: str | None) -> float | None:
+    """Parse a price value from a table cell.
+    
+    Handles formats like: "$ 9.455", "$9,455", "9.455", "9455"
+    """
+    if not cell:
+        return None
+    
+    cell = cell.strip()
+    if not cell:
+        return None
+    
+    # Remove currency symbol and extra whitespace
+    cell = re.sub(r"^\$\s*", "", cell)
+    cell = cell.strip()
+    
+    if not cell:
+        return None
+    
+    try:
+        # Handle thousands separator (.) and decimal separator (,)
+        # In Spanish format: 9.455 means 9455, 9.455,50 means 9455.50
+        if "," in cell and "." in cell:
+            # Both present: 1.234,56 format
+            cell = cell.replace(".", "").replace(",", ".")
+        elif "." in cell:
+            # Check if it's a thousands separator or decimal
+            # If there are more than 2 digits after the dot, it's likely thousands
+            parts = cell.split(".")
+            if len(parts) == 2 and len(parts[1]) == 3:
+                # Thousands separator: 1.234 -> 1234
+                cell = cell.replace(".", "")
+            # Otherwise assume it's already a decimal number
+        elif "," in cell:
+            # Decimal separator only: 1234,56 -> 1234.56
+            cell = cell.replace(",", ".")
+        
+        return float(cell)
+    except ValueError:
+        return None
+
+
+def _parse_points_value(cell: str | None) -> int | None:
+    """Parse a points value from a table cell."""
+    if not cell:
+        return None
+    
+    cell = cell.strip()
+    if not cell:
+        return None
+    
+    try:
+        # Remove any non-numeric characters
+        numeric = re.sub(r"[^\d]", "", cell)
+        if numeric:
+            return int(numeric)
+        return None
+    except ValueError:
+        return None
+
+
+def _extract_skus_from_cell(cell: str | None) -> list[str]:
+    """Extract SKU codes from a table cell."""
+    if not cell:
+        return []
+    
+    skus = []
+    # Look for numeric SKU codes (5-8 digits)
+    matches = TABLE_SKU_PATTERN.findall(cell)
+    for match in matches:
+        skus.append(match)
+    
+    # Also try the alphanumeric pattern
+    alpha_matches = SKU_PATTERN.findall(cell)
+    for match in alpha_matches:
+        sku_clean = match.upper().replace(" ", "").replace("-", "")
+        if sku_clean not in skus:
+            skus.append(sku_clean)
+    
+    return skus
+
+
+def _extract_items_from_table(
+    table: list[list[str | None]], 
+    page_number: int,
+    current_section: str
+) -> list[CatalogItem]:
+    """Extract catalog items from a table.
+    
+    Expected table format (based on Essen catalog):
+    - Column 0: Product name/description
+    - Column 1 (optional): SKU codes
+    - Columns: 6 CUOTAS, 15 CUOTAS, 12 CUOTAS, 10 CUOTAS
+    - Columns: PSVP LISTA, PSVP NEGOCIO, PRECIO PREFERENCIAL
+    - Columns: PUNTOS ESSEN+, PUNTOS
+    """
+    items: list[CatalogItem] = []
+    
+    if not table or len(table) < 2:
+        return items
+    
+    # Try to identify column indices from header row
+    header_row = table[0]
+    if not header_row:
+        return items
+    
+    # Map column names to indices
+    col_map: dict[str, int] = {}
+    for idx, cell in enumerate(header_row):
+        if cell is None:
+            continue
+        cell_norm = _normalize_text(cell)
+        
+        if "6" in cell_norm and "cuota" in cell_norm:
+            col_map["installments_6"] = idx
+        elif "15" in cell_norm and "cuota" in cell_norm:
+            col_map["installments_15"] = idx
+        elif "12" in cell_norm and "cuota" in cell_norm:
+            col_map["installments_12"] = idx
+        elif "10" in cell_norm and "cuota" in cell_norm:
+            col_map["installments_10"] = idx
+        elif "18" in cell_norm and "cuota" in cell_norm:
+            col_map["installments_18"] = idx
+        elif "psvp" in cell_norm and "lista" in cell_norm:
+            col_map["psvp_lista"] = idx
+        elif "psvp" in cell_norm and "negocio" in cell_norm:
+            col_map["psvp_negocio"] = idx
+        elif "preferencial" in cell_norm or "precio" in cell_norm and "pref" in cell_norm:
+            col_map["precio_preferencial"] = idx
+        elif "essen" in cell_norm and "punto" in cell_norm:
+            col_map["puntos_essen_plus"] = idx
+        elif "punto" in cell_norm and "essen" not in cell_norm:
+            col_map["puntos"] = idx
+    
+    # Process data rows
+    for row_idx, row in enumerate(table[1:], start=1):
+        if not row or all(cell is None or (isinstance(cell, str) and not cell.strip()) for cell in row):
+            continue
+        
+        # First non-empty cell is usually the product name
+        product_name = ""
+        skus: list[str] = []
+        
+        for cell_idx, cell in enumerate(row):
+            if cell and isinstance(cell, str) and cell.strip():
+                cell_text = cell.strip()
+                
+                # Check if this cell looks like SKUs (mostly numbers/dashes)
+                sku_matches = _extract_skus_from_cell(cell_text)
+                if sku_matches and len(sku_matches) > 0:
+                    # This cell contains SKUs
+                    skus.extend(sku_matches)
+                elif not product_name and cell_idx < 3:
+                    # This is likely the product name (first few columns)
+                    # Clean up the name - remove leading dashes/bullets
+                    cell_text = re.sub(r"^[\s\-–•]+", "", cell_text)
+                    if len(cell_text) > 2 and not cell_text.replace(" ", "").isdigit():
+                        product_name = cell_text
+                break  # Usually first cell is name
+        
+        # Also check second column for product name continuation or SKUs
+        if len(row) > 1 and row[1]:
+            second_cell = row[1].strip() if isinstance(row[1], str) else ""
+            if second_cell:
+                sku_matches = _extract_skus_from_cell(second_cell)
+                if sku_matches:
+                    for sku in sku_matches:
+                        if sku not in skus:
+                            skus.append(sku)
+                elif not product_name:
+                    # Could be continuation of product name
+                    product_name = second_cell
+        
+        if not product_name:
+            continue
+        
+        # Extract size from product name
+        size_cm = ""
+        size_match = SIZE_PATTERN.search(product_name)
+        if size_match:
+            size_cm = f"{size_match.group(1)}cm"
+        
+        # Extract prices from columns
+        def get_cell(col_name: str) -> str | None:
+            idx = col_map.get(col_name)
+            if idx is not None and idx < len(row):
+                return row[idx] if isinstance(row[idx], str) else str(row[idx]) if row[idx] is not None else None
+            return None
+        
+        # Note: installments_6 is not used as CatalogPrice model doesn't have that field
+        installments_15 = _parse_price_value(get_cell("installments_15"))
+        installments_12 = _parse_price_value(get_cell("installments_12"))
+        installments_10 = _parse_price_value(get_cell("installments_10"))
+        psvp_lista = _parse_price_value(get_cell("psvp_lista"))
+        psvp_negocio = _parse_price_value(get_cell("psvp_negocio"))
+        precio_preferencial = _parse_price_value(get_cell("precio_preferencial"))
+        puntos_essen_plus = _parse_points_value(get_cell("puntos_essen_plus"))
+        puntos = _parse_points_value(get_cell("puntos"))
+        
+        # If we couldn't map columns, try to extract prices from cells by position
+        # Look for price-like values in the row
+        if not psvp_lista:
+            for cell in row:
+                if cell and isinstance(cell, str):
+                    price = _parse_price_value(cell)
+                    if price and price > 1000:  # Reasonable price threshold
+                        psvp_lista = price
+                        break
+        
+        # Create the catalog item
+        item_skus = [CatalogItemSKU(sku=sku) for sku in skus] if skus else []
+        
+        prices: list[CatalogPrice] = []
+        if psvp_lista or puntos or installments_12:
+            price = CatalogPrice(
+                sku=skus[0] if skus else None,
+                installments_18=None,  # Not in this PDF format
+                installments_15=installments_15,
+                installments_12=installments_12,
+                installments_10=installments_10,
+                psvp_lista=psvp_lista,
+                psvp_negocio=psvp_negocio,
+                precio_preferencial=precio_preferencial,
+                puntos_essen_plus=puntos_essen_plus,
+                puntos=puntos,
+            )
+            prices.append(price)
+        
+        # Determine item type
+        item_type = ItemType.PRODUCT
+        name_lower = product_name.lower()
+        if "combo" in name_lower or "kit" in name_lower:
+            item_type = ItemType.COMBO
+        elif "repuesto" in name_lower or "reemplazo" in name_lower:
+            item_type = ItemType.REPLACEMENT_PART
+        elif "bundle" in name_lower or "pack" in name_lower or "x2" in name_lower or "x3" in name_lower:
+            item_type = ItemType.BUNDLE
+        
+        item = CatalogItem(
+            item_type=item_type,
+            name=product_name,
+            section_name=current_section,
+            page_number=page_number,
+            raw_extracted_text=str(row)[:500],
+            extraction_confidence=0.9,
+            size_cm=size_cm,
+            skus=item_skus,
+            prices=prices,
+        )
+        
+        items.append(item)
+    
+    return items
 
 
 def _extract_items_from_blocks(
@@ -302,20 +578,18 @@ class PDFParser:
 
     def _check_dependencies(self) -> None:
         """Check which PDF extraction libraries are available."""
-        try:
-            import pdfplumber
+        import importlib.util
 
+        if importlib.util.find_spec("pdfplumber") is not None:
             self._pdfplumber_available = True
-        except ImportError:
+        else:
             logger.warning(
                 "pdfplumber not installed. Structured PDF extraction unavailable."
             )
 
-        try:
-            import pytesseract
-
+        if importlib.util.find_spec("pytesseract") is not None:
             self._pytesseract_available = True
-        except ImportError:
+        else:
             logger.warning("pytesseract not installed. OCR fallback unavailable.")
 
     def parse(self, pdf_path: str, filename: str) -> ParseResult:
@@ -338,7 +612,6 @@ class PDFParser:
             return result
 
         try:
-            import pdfplumber
 
             pages = self._extract_pages_with_pdfplumber(pdf_path)
             result.pages = pages
@@ -376,8 +649,17 @@ class PDFParser:
                     if page_num <= page.page_number:
                         current_section = section_name
 
-                items = _extract_items_from_blocks(page.blocks, current_section)
-                result.items.extend(items)
+                # First, try to extract items from tables (preferred for catalog PDFs)
+                for table in page.tables:
+                    table_items = _extract_items_from_table(
+                        table, page.page_number, current_section
+                    )
+                    result.items.extend(table_items)
+
+                # If no items from tables, fall back to block extraction
+                if not result.items:
+                    items = _extract_items_from_blocks(page.blocks, current_section)
+                    result.items.extend(items)
 
             # Extract promotions
             result.promotions = _extract_promotions_from_text(all_text)
@@ -426,6 +708,16 @@ class PDFParser:
                 if page.images:
                     parsed_page.has_images = True
 
+                # Extract tables from the page
+                try:
+                    tables = page.extract_tables()
+                    if tables:
+                        for table in tables:
+                            if table:  # Table is not empty
+                                parsed_page.tables.append(table)
+                except Exception as table_exc:
+                    logger.debug("Table extraction failed for page %d: %s", page_num, table_exc)
+
                 # Create blocks from text
                 if text.strip():
                     # Split into paragraphs/blocks
@@ -465,8 +757,6 @@ class PDFParser:
         """
         try:
             import pytesseract
-            from PIL import Image
-            import io
 
             # Convert page to image
             image = page.to_image(resolution=300)

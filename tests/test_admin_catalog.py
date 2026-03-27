@@ -441,3 +441,112 @@ class TestPriceExtraction:
             valid_from=datetime.now(timezone.utc),
         )
         assert price.valid_from is not None
+
+
+class TestTableExtraction:
+    """Tests for table-based PDF extraction."""
+
+    def test_parse_price_value_with_dollar_sign(self) -> None:
+        """Test parsing prices with dollar sign."""
+        from app.services.ingestion.parser import _parse_price_value
+        assert _parse_price_value("$ 9.455") == 9455.0
+        assert _parse_price_value("$9.455") == 9455.0
+        assert _parse_price_value("$11.346") == 11346.0
+
+    def test_parse_price_value_without_dollar_sign(self) -> None:
+        """Test parsing prices without dollar sign."""
+        from app.services.ingestion.parser import _parse_price_value
+        assert _parse_price_value("9.455") == 9455.0
+        assert _parse_price_value("170.188") == 170188.0
+
+    def test_parse_price_value_none_or_empty(self) -> None:
+        """Test parsing None or empty price values."""
+        from app.services.ingestion.parser import _parse_price_value
+        assert _parse_price_value(None) is None
+        assert _parse_price_value("") is None
+        assert _parse_price_value("   ") is None
+
+    def test_parse_points_value(self) -> None:
+        """Test parsing points values."""
+        from app.services.ingestion.parser import _parse_points_value
+        assert _parse_points_value("35") == 35
+        assert _parse_points_value("45") == 45
+        assert _parse_points_value(None) is None
+        assert _parse_points_value("") is None
+
+    def test_extract_skus_from_cell(self) -> None:
+        """Test extracting SKU codes from table cells."""
+        from app.services.ingestion.parser import _extract_skus_from_cell
+        skus = _extract_skus_from_cell("9455012 - 3754066 - 3755098")
+        assert "9455012" in skus
+        assert "3754066" in skus
+        assert "3755098" in skus
+
+    def test_extract_items_from_table(self) -> None:
+        """Test extracting items from a catalog table."""
+        from app.services.ingestion.parser import _extract_items_from_table
+
+        table = [
+            ["", "6 CUOTAS", "15 CUOTAS", "12 CUOTAS", "10 CUOTAS", "PSVP LISTA", "PSVP NEGOCIO", "PRECIO PREFERENCIAL", "PUNTOS ESSEN+", "PUNTOS"],
+            ["Savarín 24cm TWISTER", "$ 9.455", "$ 11.346", "$ 14.182", "$ 17.019", "$ 170.188", "$ 136.150", "$ 122.535", "35", "35"],
+            ["Savarín 18cm TIERRA", "$ 7.024", "$ 9.428", "$ 10.535", "$ 12.643", "$ 126.425", "$ 101.140", "$ 91.026", "26", "26"],
+        ]
+
+        items = _extract_items_from_table(table, 1, "COMPLEMENTOS")
+        assert len(items) == 2
+        assert items[0].name == "Savarín 24cm TWISTER"
+        assert items[0].prices[0].psvp_lista == 170188.0
+        assert items[0].prices[0].puntos == 35
+        assert items[0].section_name == "COMPLEMENTOS"
+
+    def test_extract_items_from_table_with_skus(self) -> None:
+        """Test extracting items with SKU codes in table."""
+        from app.services.ingestion.parser import _extract_items_from_table
+
+        table = [
+            ["Producto", "SKU", "PSVP LISTA", "PUNTOS"],
+            ["WOK 30cm", "3754012 - 3754066 - 3755098", "$ 97.250", "20"],
+        ]
+
+        items = _extract_items_from_table(table, 1, "COMPLEMENTOS")
+        assert len(items) == 1
+        assert items[0].name == "WOK 30cm"
+
+
+class TestCatalogJsonSaving:
+    """Tests for saving items to catalog.json."""
+
+    def test_catalog_item_to_product_dict(self) -> None:
+        """Test converting CatalogItem to product dict."""
+        from app.services.ingestion.import_service import _catalog_item_to_product_dict
+
+        item = CatalogItem(
+            name="Savarín 24cm TWISTER",
+            section_name="COMPLEMENTOS",
+            size_cm="24cm",
+            skus=[CatalogItemSKU(sku="9455012")],
+            prices=[CatalogPrice(
+                sku="9455012",
+                psvp_lista=170188.0,
+                puntos=35,
+            )],
+        )
+
+        product = _catalog_item_to_product_dict(item, 1)
+        assert product["id"] == "9455012"
+        assert product["name"] == "Savarín 24cm TWISTER"
+        assert product["price"] == 170188.0
+        assert product["category"] == "COMPLEMENTOS"
+
+    def test_catalog_item_without_sku_gets_generated_id(self) -> None:
+        """Test that items without SKU get a generated ID."""
+        from app.services.ingestion.import_service import _catalog_item_to_product_dict
+
+        item = CatalogItem(
+            name="Test Product",
+            section_name="Test Section",
+        )
+
+        product = _catalog_item_to_product_dict(item, 5)
+        assert product["id"] == "P005"
+
