@@ -598,13 +598,17 @@ class CatalogImportService:
         catalog_import.summary.updated_items_count = updated_count
         catalog_import.summary.changed_prices_count = price_changes
 
-        # Save items to catalog.json (replacing existing content)
+        # Save items to catalog.json and reload the in-memory catalog service
         if parse_result.items:
             try:
                 _save_items_to_catalog_json(parse_result.items)
                 catalog_import.add_log(
                     f"Saved {len(parse_result.items)} products to catalog.json"
                 )
+                # Reload the catalog service so the chat bot uses the new data
+                from app.services.catalog import catalog_service
+                catalog_service.reload()
+                catalog_import.add_log("Catalog service reloaded with new products")
             except Exception as save_exc:
                 logger.exception("Failed to save to catalog.json: %s", save_exc)
                 catalog_import.add_log(f"Warning: Failed to save to catalog.json: {save_exc}")
