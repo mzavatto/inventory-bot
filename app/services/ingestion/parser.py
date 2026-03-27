@@ -184,7 +184,11 @@ SIZE_PATTERN = re.compile(r"(\d+)\s*(?:cm|CM)", re.IGNORECASE)
 def _parse_price_value(cell: str | None) -> float | None:
     """Parse a price value from a table cell.
     
-    Handles formats like: "$ 9.455", "$9,455", "9.455", "9455"
+    Handles Spanish number formats commonly used in Essen catalogs:
+    - "$ 9.455" (dot as thousands separator) -> 9455.0
+    - "9.455,50" (dot as thousands, comma as decimal) -> 9455.50
+    - "9455" (no separators) -> 9455.0
+    - "1234,56" (comma as decimal only) -> 1234.56
     """
     if not cell:
         return None
@@ -320,7 +324,8 @@ def _extract_items_from_table(
         product_name = ""
         skus: list[str] = []
         
-        for cell_idx, cell in enumerate(row):
+        # Check first few cells for product name and SKUs
+        for cell_idx, cell in enumerate(row[:3]):  # Only check first 3 columns
             if cell and isinstance(cell, str) and cell.strip():
                 cell_text = cell.strip()
                 
@@ -328,27 +333,15 @@ def _extract_items_from_table(
                 sku_matches = _extract_skus_from_cell(cell_text)
                 if sku_matches and len(sku_matches) > 0:
                     # This cell contains SKUs
-                    skus.extend(sku_matches)
-                elif not product_name and cell_idx < 3:
-                    # This is likely the product name (first few columns)
-                    # Clean up the name - remove leading dashes/bullets
-                    cell_text = re.sub(r"^[\s\-–•]+", "", cell_text)
-                    if len(cell_text) > 2 and not cell_text.replace(" ", "").isdigit():
-                        product_name = cell_text
-                break  # Usually first cell is name
-        
-        # Also check second column for product name continuation or SKUs
-        if len(row) > 1 and row[1]:
-            second_cell = row[1].strip() if isinstance(row[1], str) else ""
-            if second_cell:
-                sku_matches = _extract_skus_from_cell(second_cell)
-                if sku_matches:
                     for sku in sku_matches:
                         if sku not in skus:
                             skus.append(sku)
                 elif not product_name:
-                    # Could be continuation of product name
-                    product_name = second_cell
+                    # This is likely the product name
+                    # Clean up the name - remove leading dashes/bullets
+                    cell_text = re.sub(r"^[\s\-–•]+", "", cell_text)
+                    if len(cell_text) > 2 and not cell_text.replace(" ", "").isdigit():
+                        product_name = cell_text
         
         if not product_name:
             continue
