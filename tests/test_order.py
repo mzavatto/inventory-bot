@@ -100,5 +100,74 @@ class TestOrder:
         order.add_item(make_item("P001", "Yerba Mate", 2, 850.0))
         summary = order.to_summary()
         assert "Yerba Mate" in summary
+        assert "P001" in summary
         assert "1.700" in summary or "1,700" in summary
         assert "Total" in summary
+
+    def test_set_discount_percent(self) -> None:
+        order = Order()
+        order.add_item(make_item("P001", "Yerba", 2, 1000.0))
+        order.set_discount(percent=10)
+        assert order.subtotal == 2000.0
+        assert order.total == 1800.0
+
+    def test_set_discount_amount(self) -> None:
+        order = Order()
+        order.add_item(make_item("P001", "Yerba", 1, 5000.0))
+        order.set_discount(amount=500)
+        assert order.subtotal == 5000.0
+        assert order.total == 4500.0
+
+    def test_clear_discount(self) -> None:
+        order = Order()
+        order.add_item(make_item("P001", "Yerba", 1, 1000.0))
+        order.set_discount(percent=20)
+        order.set_discount()
+        assert order.discount_percent is None
+        assert order.discount_amount is None
+        assert order.total == 1000.0
+
+    def test_update_unit_price(self) -> None:
+        order = Order()
+        order.add_item(make_item("P001", "Yerba", 2, 1000.0))
+        ok = order.update_unit_price("P001", 800.0)
+        assert ok is True
+        assert order.items[0].unit_price == 800.0
+        assert order.items[0].subtotal == 1600.0
+        assert order.total == 1600.0
+
+    def test_update_unit_price_nonexistent(self) -> None:
+        order = Order()
+        assert order.update_unit_price("ghost", 100.0) is False
+
+    def test_to_client_summary_includes_client_name(self) -> None:
+        order = Order()
+        order.client_name = "Juan"
+        order.add_item(make_item("P001", "Yerba", 1, 1000.0))
+        summary = order.to_client_summary()
+        assert "Juan" in summary
+        assert "Yerba" in summary
+        assert "P001" not in summary
+        assert "Total" in summary
+
+    def test_to_client_summary_with_discount(self) -> None:
+        order = Order()
+        order.add_item(make_item("P001", "Yerba", 2, 1000.0))
+        order.set_discount(percent=10)
+        summary = order.to_client_summary()
+        assert "10%" in summary
+        assert "1.800" in summary or "1,800" in summary
+
+    def test_clear_resets_discount_and_metadata(self) -> None:
+        order = Order()
+        order.add_item(make_item("P001", "Yerba", 1, 1000.0))
+        order.set_discount(percent=10)
+        order.client_name = "Juan"
+        order.notes = "Entregar el viernes"
+        order.clear()
+        assert order.items == []
+        assert order.total == 0.0
+        assert order.subtotal == 0.0
+        assert order.discount_percent is None
+        assert order.client_name == ""
+        assert order.notes == ""

@@ -1,221 +1,3567 @@
 [
   {
     "id": "P001",
-    "name": "Yerba Mate Canarias 500g",
-    "description": "Yerba mate tradicional uruguaya, corte fino. Bolsa de 500 gramos.",
-    "price": 850.0,
-    "unit": "bolsa",
-    "category": "Yerba Mate",
-    "stock": 200,
+    "name": "Combo a Tu Medida Chef: BIFERA 33X23cm + SARTÉN CHEF TERRA",
+    "description": "Sección: DESTACADOS. Tamaño: 23cm",
+    "price": 602950.0,
+    "price_installments_12": 50246.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
     "promotions": [
       {
-        "description": "Llevando 10 o más bolsas, 15% de descuento",
-        "discount_percent": 15,
-        "min_quantity": 10,
-        "conditions": "Por cantidad mínima de 10 unidades"
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $50,246.00, 15 cuotas de $40,197.00, 10 cuotas de $60,295.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 124 | Puntos: 124",
+        "conditions": "Programa de puntos"
       }
     ],
     "tags": [
-      "yerba",
-      "mate",
-      "canarias",
-      "500g"
+      "combo",
+      "medida",
+      "chef:",
+      "bifera",
+      "33x23cm",
+      "sartén",
+      "chef",
+      "terra",
+      "destacados"
     ]
   },
   {
     "id": "P002",
-    "name": "Yerba Mate Canarias 1kg",
-    "description": "Yerba mate tradicional uruguaya, corte fino. Bolsa de 1 kilogramo.",
-    "price": 1500.0,
-    "unit": "bolsa",
-    "category": "Yerba Mate",
-    "stock": 150,
+    "name": "Combo a Tu Medida Chef: CACEROLA 18cm + SARTÉN CHEF TERRA",
+    "description": "Sección: DESTACADOS. Tamaño: 18cm",
+    "price": 602950.0,
+    "price_installments_12": 50246.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
     "promotions": [
       {
-        "description": "Llevando 6 o más bolsas, 10% de descuento",
-        "discount_percent": 10,
-        "min_quantity": 6,
-        "conditions": "Por cantidad mínima de 6 unidades"
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $50,246.00, 15 cuotas de $40,197.00, 10 cuotas de $60,295.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 124 | Puntos: 124",
+        "conditions": "Programa de puntos"
       }
     ],
     "tags": [
-      "yerba",
-      "mate",
-      "canarias",
-      "1kg"
+      "combo",
+      "medida",
+      "chef:",
+      "cacerola",
+      "18cm",
+      "sartén",
+      "chef",
+      "terra",
+      "destacados"
     ]
   },
   {
     "id": "P003",
-    "name": "Termo Stanley 1L",
-    "description": "Termo de acero inoxidable, capacidad 1 litro. Mantiene temperatura hasta 24hs. Color verde.",
-    "price": 8500.0,
-    "unit": "unidad",
-    "category": "Accesorios Mate",
-    "stock": 45,
-    "promotions": [],
+    "name": "Combo a Tu Medida Chef: CACEROLA 24cm + SARTÉN CHEF TERRA",
+    "description": "Sección: DESTACADOS. Tamaño: 24cm",
+    "price": 748825.0,
+    "price_installments_12": 62402.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $62,402.00, 15 cuotas de $49,922.00, 10 cuotas de $74,883.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 154 | Puntos: 154",
+        "conditions": "Programa de puntos"
+      }
+    ],
     "tags": [
-      "termo",
-      "stanley",
-      "acero",
-      "1 litro"
+      "combo",
+      "medida",
+      "chef:",
+      "cacerola",
+      "24cm",
+      "sartén",
+      "chef",
+      "terra",
+      "destacados"
     ]
   },
   {
     "id": "P004",
-    "name": "Mate Calabaza Premium",
-    "description": "Mate de calabaza curado, con aro y bombilla incluidos. Ideal para empezar a matear.",
-    "price": 3200.0,
-    "unit": "unidad",
-    "category": "Accesorios Mate",
-    "stock": 30,
+    "name": "Combo a Tu Medida Chef: CACEROLA 28cm + SARTÉN CHEF TERRA",
+    "description": "Sección: DESTACADOS. Tamaño: 28cm",
+    "price": 919012.0,
+    "price_installments_12": 76584.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
     "promotions": [
       {
-        "description": "Combo mate + termo: 10% descuento en la compra conjunta",
-        "discount_percent": 10,
-        "conditions": "Al comprar Mate Calabaza + Termo Stanley juntos"
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $76,584.00, 15 cuotas de $61,267.00, 10 cuotas de $91,901.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 189 | Puntos: 189",
+        "conditions": "Programa de puntos"
       }
     ],
     "tags": [
-      "mate",
-      "calabaza",
-      "bombilla",
-      "curado"
+      "combo",
+      "medida",
+      "chef:",
+      "cacerola",
+      "28cm",
+      "sartén",
+      "chef",
+      "terra",
+      "destacados"
     ]
   },
   {
     "id": "P005",
-    "name": "Azúcar Refinada 1kg",
-    "description": "Azúcar blanca refinada, bolsa de 1 kilogramo.",
-    "price": 450.0,
-    "unit": "bolsa",
-    "category": "Almacén",
-    "stock": 500,
+    "name": "Combo a Tu Medida Chef: CACEROLA CUADRADA 29cm + SARTÉN CHEF TERRA",
+    "description": "Sección: DESTACADOS. Tamaño: 29cm",
+    "price": 1050300.0,
+    "price_installments_12": 87525.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
     "promotions": [
       {
-        "description": "Pack x6: 5% de descuento",
-        "discount_percent": 5,
-        "min_quantity": 6,
-        "conditions": "Por cantidad mínima de 6 bolsas"
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $87,525.00, 15 cuotas de $70,020.00, 10 cuotas de $105,030.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 216 | Puntos: 216",
+        "conditions": "Programa de puntos"
       }
     ],
     "tags": [
-      "azúcar",
-      "azucar",
-      "refinada",
-      "1kg"
+      "combo",
+      "medida",
+      "chef:",
+      "cacerola",
+      "cuadrada",
+      "29cm",
+      "sartén",
+      "chef",
+      "terra",
+      "destacados"
     ]
   },
   {
     "id": "P006",
-    "name": "Café Molido Unión 250g",
-    "description": "Café molido tradicional de tueste natural, 250 gramos. Ideal para cafetera.",
-    "price": 1200.0,
-    "unit": "paquete",
-    "category": "Café y Infusiones",
-    "stock": 80,
+    "name": "Combo a Tu Medida Chef: FLIP 2.2 + SARTÉN CHEF TERRA",
+    "description": "Sección: DESTACADOS",
+    "price": 836350.0,
+    "price_installments_12": 69696.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
     "promotions": [
       {
-        "description": "2do paquete al 50%",
-        "discount_percent": 50,
-        "min_quantity": 2,
-        "conditions": "Comprando 2 paquetes, el segundo tiene 50% de descuento"
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $69,696.00, 15 cuotas de $55,757.00, 10 cuotas de $83,635.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 172 | Puntos: 172",
+        "conditions": "Programa de puntos"
       }
     ],
     "tags": [
-      "café",
-      "cafe",
-      "molido",
-      "unión",
-      "union",
-      "250g"
+      "combo",
+      "medida",
+      "chef:",
+      "flip",
+      "2.2",
+      "sartén",
+      "chef",
+      "terra",
+      "destacados"
     ]
   },
   {
     "id": "P007",
-    "name": "Té Lipton Caja x25",
-    "description": "Té negro Lipton en saquitos, caja de 25 unidades.",
-    "price": 680.0,
-    "unit": "caja",
-    "category": "Café e Infusiones",
-    "stock": 120,
-    "promotions": [],
+    "name": "Combo a Tu Medida Chef: FUENTE RECTANGULAR + SARTÉN CHEF TERRA",
+    "description": "Sección: DESTACADOS",
+    "price": 855800.0,
+    "price_installments_12": 71317.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $71,317.00, 15 cuotas de $57,053.00, 10 cuotas de $85,580.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 176 | Puntos: 176",
+        "conditions": "Programa de puntos"
+      }
+    ],
     "tags": [
-      "té",
-      "te",
-      "lipton",
-      "saquitos",
-      "infusión"
+      "combo",
+      "medida",
+      "chef:",
+      "fuente",
+      "rectangular",
+      "sartén",
+      "chef",
+      "terra",
+      "destacados"
     ]
   },
   {
     "id": "P008",
-    "name": "Galletitas Oreo x3 Pack",
-    "description": "Pack de 3 paquetes de galletitas Oreo rellenas de crema. 432 gramos en total.",
-    "price": 1800.0,
-    "unit": "pack",
-    "category": "Galletitas y Snacks",
-    "stock": 60,
+    "name": "Combo a Tu Medida Chef: SARTÉN 24cm + SARTÉN CHEF TERRA",
+    "description": "Sección: DESTACADOS. Tamaño: 24cm",
+    "price": 719650.0,
+    "price_installments_12": 59971.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
     "promotions": [
       {
-        "description": "Comprando 4 packs, uno es gratis",
-        "conditions": "Promo 4x3 en pack Oreo"
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $59,971.00, 15 cuotas de $47,977.00, 10 cuotas de $71,965.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 148 | Puntos: 148",
+        "conditions": "Programa de puntos"
       }
     ],
     "tags": [
-      "galletitas",
-      "oreo",
-      "pack",
-      "crema"
+      "combo",
+      "medida",
+      "chef:",
+      "sartén",
+      "24cm",
+      "chef",
+      "terra",
+      "destacados"
     ]
   },
   {
     "id": "P009",
-    "name": "Agua Mineral Salus 1.5L",
-    "description": "Agua mineral sin gas Salus, botella de 1.5 litros.",
-    "price": 320.0,
-    "unit": "botella",
-    "category": "Bebidas",
-    "stock": 300,
+    "name": "Combo a Tu Medida Chef: SARTÉN 28cm + SARTÉN CHEF TERRA",
+    "description": "Sección: DESTACADOS. Tamaño: 28cm",
+    "price": 880112.0,
+    "price_installments_12": 73343.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
     "promotions": [
       {
-        "description": "Caja de 12 botellas a precio especial",
-        "discount_amount": 400,
-        "min_quantity": 12,
-        "conditions": "Comprando 12 unidades, descuento de $400 en total"
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $73,343.00, 15 cuotas de $58,674.00, 10 cuotas de $88,011.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 181 | Puntos: 181",
+        "conditions": "Programa de puntos"
       }
     ],
     "tags": [
-      "agua",
-      "mineral",
-      "salus",
-      "sin gas",
-      "1.5l"
+      "combo",
+      "medida",
+      "chef:",
+      "sartén",
+      "28cm",
+      "chef",
+      "terra",
+      "destacados"
     ]
   },
   {
     "id": "P010",
-    "name": "Detergente Magistral 750ml",
-    "description": "Detergente líquido para vajilla, aroma limón. Botella de 750ml.",
-    "price": 590.0,
-    "unit": "botella",
-    "category": "Limpieza",
-    "stock": 200,
+    "name": "Oportunidad Imperdible de Cacerola 24: CACEROLA 24cm",
+    "description": "Sección: DESTACADOS. Tamaño: 24cm",
+    "price": 462910.0,
+    "price_installments_12": 38576.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
     "promotions": [
       {
-        "description": "Llevando 3 o más, 8% de descuento",
-        "discount_percent": 8,
-        "min_quantity": 3,
-        "conditions": "Por cantidad mínima de 3 botellas"
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $38,576.00, 15 cuotas de $30,861.00, 10 cuotas de $46,291.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 95 | Puntos: 95",
+        "conditions": "Programa de puntos"
       }
     ],
     "tags": [
-      "detergente",
-      "magistral",
-      "limpieza",
-      "vajilla",
-      "limón",
-      "limon"
+      "oportunidad",
+      "imperdible",
+      "cacerola",
+      "24:",
+      "24cm",
+      "destacados"
+    ]
+  },
+  {
+    "id": "P011",
+    "name": "Oportunidad Imperdible de Cacerola 24: CACEROLA FUSIÓN 24cm",
+    "description": "Sección: DESTACADOS. Tamaño: 24cm",
+    "price": 494030.0,
+    "price_installments_12": 41169.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $41,169.00, 15 cuotas de $32,935.00, 10 cuotas de $49,403.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 102 | Puntos: 102",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "oportunidad",
+      "imperdible",
+      "cacerola",
+      "24:",
+      "fusión",
+      "24cm",
+      "destacados"
+    ]
+  },
+  {
+    "id": "P012",
+    "name": "Oportunidad Imperdible de Espatula y Batidor: ESPÁTULA Y BATIDOR DE SILICONA",
+    "description": "Sección: DESTACADOS",
+    "price": 58600.0,
+    "price_installments_12": 4883.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $4,883.00, 15 cuotas de $3,907.00, 10 cuotas de $5,860.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 13 | Puntos: 13",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "oportunidad",
+      "imperdible",
+      "espatula",
+      "batidor:",
+      "espátula",
+      "batidor",
+      "silicona",
+      "destacados"
+    ]
+  },
+  {
+    "id": "P013",
+    "name": "Oportunidad Imperdible de BOWLS DE ACERO SET X 3 CON TAPA: BOWLS DE ACERO SET X 3 CON TAPA (Negro)",
+    "description": "Sección: DESTACADOS",
+    "price": 241180.0,
+    "price_installments_12": 20098.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $20,098.00, 15 cuotas de $16,079.00, 10 cuotas de $24,118.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 50 | Puntos: 50",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "oportunidad",
+      "imperdible",
+      "bowls",
+      "acero",
+      "set",
+      "con",
+      "tapa:",
+      "tapa",
+      "(negro)",
+      "destacados"
+    ]
+  },
+  {
+    "id": "P014",
+    "name": "Combo Fusión: SARTÉN FUSIÓN 24cm + CACEROLA FUSIÓN 24cm",
+    "description": "Sección: DESTACADOS. Tamaño: 24cm",
+    "price": 1201038.0,
+    "price_installments_12": 100086.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $100,086.00, 15 cuotas de $80,069.00, 10 cuotas de $120,104.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 340 | Puntos: 247",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "fusión:",
+      "sartén",
+      "fusión",
+      "24cm",
+      "cacerola",
+      "destacados"
+    ]
+  },
+  {
+    "id": "P015",
+    "name": "Combo Utility: CACEROLA 18cm + SAVARIN 18cm + CUCHILLO UTILITY",
+    "description": "Sección: DESTACADOS. Tamaño: 18cm",
+    "price": 724512.0,
+    "price_installments_12": 60376.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $60,376.00, 15 cuotas de $48,301.00, 10 cuotas de $72,451.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 224 | Puntos: 149",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "utility:",
+      "cacerola",
+      "18cm",
+      "savarin",
+      "cuchillo",
+      "utility",
+      "destacados"
+    ]
+  },
+  {
+    "id": "P016",
+    "name": "Combo Práctico: CACEROLA 24cm + SARTÉN 24cm + SAVARIN 24cm",
+    "description": "Sección: DESTACADOS. Tamaño: 24cm",
+    "price": 1298288.0,
+    "price_installments_12": 108191.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $108,191.00, 15 cuotas de $86,553.00, 10 cuotas de $129,829.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 358 | Puntos: 267",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "práctico:",
+      "cacerola",
+      "24cm",
+      "sartén",
+      "savarin",
+      "destacados"
+    ]
+  },
+  {
+    "id": "P017",
+    "name": "Combo Complementos: SAVARIN 24cm + VAPORIZADOR 18/28cm + CESTILLO FREIDOR COLGANTE",
+    "description": "Sección: DESTACADOS. Tamaño: 24cm",
+    "price": 607812.0,
+    "price_installments_12": 50651.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $50,651.00, 15 cuotas de $40,521.00, 10 cuotas de $60,781.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 200 | Puntos: 125",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "complementos:",
+      "savarin",
+      "24cm",
+      "vaporizador",
+      "18/28cm",
+      "cestillo",
+      "freidor",
+      "colgante",
+      "destacados"
+    ]
+  },
+  {
+    "id": "P018",
+    "name": "Combo Nuit Pro: SET NUIT 24 cm + FLIP NUIT 24 cm",
+    "description": "Sección: DESTACADOS. Tamaño: 24cm",
+    "price": 1434438.0,
+    "price_installments_12": 119536.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $119,536.00, 15 cuotas de $95,629.00, 10 cuotas de $143,444.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 383 | Puntos: 295",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "nuit",
+      "pro:",
+      "set",
+      "flip",
+      "destacados"
+    ]
+  },
+  {
+    "id": "P019",
+    "name": "Combo Cocina Creativa: CUADRADA 29cm + BUDINERAS x2 Terra",
+    "description": "Sección: DESTACADOS. Tamaño: 29cm",
+    "price": 1137825.0,
+    "price_installments_12": 94819.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $94,819.00, 15 cuotas de $75,855.00, 10 cuotas de $113,783.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 351 | Puntos: 234",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "cocina",
+      "creativa:",
+      "cuadrada",
+      "29cm",
+      "budineras",
+      "terra",
+      "destacados"
+    ]
+  },
+  {
+    "id": "P020",
+    "name": "Combo Chef: CACEROLA 28cm + SARTÉN 28cm + CUCHILLO CHEF",
+    "description": "Sección: DESTACADOS. Tamaño: 28cm",
+    "price": 1697012.0,
+    "price_installments_12": 141418.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $141,418.00, 15 cuotas de $113,134.00, 10 cuotas de $169,701.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 384 | Puntos: 349",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "chef:",
+      "cacerola",
+      "28cm",
+      "sartén",
+      "cuchillo",
+      "chef",
+      "destacados"
+    ]
+  },
+  {
+    "id": "P021",
+    "name": "Combo Experiencias: CACEROLA 24cm + SAVARIN 24cm + VAPORIZADOR 18/28cm + CESTILLO FREIDOR COLGANTE",
+    "description": "Sección: DESTACADOS. Tamaño: 24cm",
+    "price": 1186450.0,
+    "price_installments_12": 98871.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $98,871.00, 15 cuotas de $79,097.00, 10 cuotas de $118,645.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 360 | Puntos: 244",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "experiencias:",
+      "cacerola",
+      "24cm",
+      "savarin",
+      "vaporizador",
+      "18/28cm",
+      "cestillo",
+      "freidor",
+      "colgante",
+      "destacados"
+    ]
+  },
+  {
+    "id": "P022",
+    "name": "Combo Precisión: CUCHILLO SANTOKU + CUCHILLO CARVING + AFILADOR DE CUCHILLOS + TABLA DE BAMBOO COCINA 30X40",
+    "description": "Sección: DESTACADOS",
+    "price": 671025.0,
+    "price_installments_12": 55919.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $55,919.00, 15 cuotas de $44,735.00, 10 cuotas de $67,103.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 215 | Puntos: 138",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "precisión:",
+      "cuchillo",
+      "santoku",
+      "carving",
+      "afilador",
+      "cuchillos",
+      "tabla",
+      "bamboo",
+      "cocina",
+      "30x40",
+      "destacados"
+    ]
+  },
+  {
+    "id": "P023",
+    "name": "Combo Bazar Mix: RALLADOR DE MANO - GRANO GRUESO + RALLADOR DE MANO - GRANO MEDIO + RALLADOR DE MANO - GRANO FINO + BOWLS DE ACERO SET X 3 CON TAPA (Negro)",
+    "description": "Sección: DESTACADOS",
+    "price": 564050.0,
+    "price_installments_12": 47004.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $47,004.00, 15 cuotas de $37,603.00, 10 cuotas de $56,405.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 200 | Puntos: 116",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "bazar",
+      "mix:",
+      "rallador",
+      "mano",
+      "grano",
+      "grueso",
+      "medio",
+      "fino",
+      "bowls",
+      "acero",
+      "set",
+      "con",
+      "tapa",
+      "(negro)",
+      "destacados"
+    ]
+  },
+  {
+    "id": "P024",
+    "name": "Combo Aliados: PLANCHA NUIT + TABLA DE BAMBOO COCINA 30X30 + CUCHILLO SANTOKU",
+    "description": "Sección: DESTACADOS",
+    "price": 870388.0,
+    "price_installments_12": 72532.0,
+    "unit": "combo",
+    "category": "DESTACADOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $72,532.00, 15 cuotas de $58,026.00, 10 cuotas de $87,039.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 300 | Puntos: 179",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "aliados:",
+      "plancha",
+      "nuit",
+      "tabla",
+      "bamboo",
+      "cocina",
+      "30x30",
+      "cuchillo",
+      "santoku",
+      "destacados"
+    ]
+  },
+  {
+    "id": "38223002",
+    "name": "WOK TERRA",
+    "description": "Sección: LÍNEA CONTEMPORÁNEA",
+    "price": 389000.0,
+    "price_installments_12": 32417.0,
+    "unit": "unidad",
+    "category": "LÍNEA CONTEMPORÁNEA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $32,417.00, 15 cuotas de $25,933.00, 10 cuotas de $38,900.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 80 | Puntos: 80",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "wok",
+      "terra",
+      "línea",
+      "contemporánea"
+    ]
+  },
+  {
+    "id": "38222402",
+    "name": "SARTÉN CHEF TERRA",
+    "description": "Sección: LÍNEA CONTEMPORÁNEA",
+    "price": 340375.0,
+    "price_installments_12": 28365.0,
+    "unit": "unidad",
+    "category": "LÍNEA CONTEMPORÁNEA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $28,365.00, 15 cuotas de $22,692.00, 10 cuotas de $34,038.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 80 | Puntos: 80",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "sartén",
+      "chef",
+      "terra",
+      "línea",
+      "contemporánea"
+    ]
+  },
+  {
+    "id": "38121702",
+    "name": "JARRO QUICK TERRA",
+    "description": "Sección: LÍNEA CONTEMPORÁNEA",
+    "price": 282025.0,
+    "price_installments_12": 23502.0,
+    "unit": "unidad",
+    "category": "LÍNEA CONTEMPORÁNEA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $23,502.00, 15 cuotas de $18,802.00, 10 cuotas de $28,203.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 58 | Puntos: 58",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "jarro",
+      "quick",
+      "terra",
+      "línea",
+      "contemporánea"
+    ]
+  },
+  {
+    "id": "38222002",
+    "name": "SARTÉN EXPRESS TERRA",
+    "description": "Sección: LÍNEA CONTEMPORÁNEA",
+    "price": 267438.0,
+    "price_installments_12": 22286.0,
+    "unit": "unidad",
+    "category": "LÍNEA CONTEMPORÁNEA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $22,286.00, 15 cuotas de $17,829.00, 10 cuotas de $26,744.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 55 | Puntos: 55",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "sartén",
+      "express",
+      "terra",
+      "línea",
+      "contemporánea"
+    ]
+  },
+  {
+    "id": "38252466",
+    "name": "SARTÉN 24cm",
+    "description": "Sección: LÍNEA CONTEMPORÁNEA. Tamaño: 24cm",
+    "price": 549462.0,
+    "price_installments_12": 45788.0,
+    "unit": "unidad",
+    "category": "LÍNEA CONTEMPORÁNEA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $45,788.00, 15 cuotas de $36,631.00, 10 cuotas de $54,946.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 113 | Puntos: 113",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "sartén",
+      "24cm",
+      "línea",
+      "contemporánea"
+    ]
+  },
+  {
+    "id": "38252866",
+    "name": "SARTÉN 28cm",
+    "description": "Sección: LÍNEA CONTEMPORÁNEA. Tamaño: 28cm",
+    "price": 709925.0,
+    "price_installments_12": 59160.0,
+    "unit": "unidad",
+    "category": "LÍNEA CONTEMPORÁNEA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $59,160.00, 15 cuotas de $47,328.00, 10 cuotas de $70,993.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 146 | Puntos: 146",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "sartén",
+      "28cm",
+      "línea",
+      "contemporánea"
+    ]
+  },
+  {
+    "id": "38351830",
+    "name": "CACEROLA 18cm",
+    "description": "Sección: LÍNEA CONTEMPORÁNEA. Tamaño: 18cm",
+    "price": 432762.0,
+    "price_installments_12": 36064.0,
+    "unit": "unidad",
+    "category": "LÍNEA CONTEMPORÁNEA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $36,064.00, 15 cuotas de $28,851.00, 10 cuotas de $43,276.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 89 | Puntos: 89",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cacerola",
+      "18cm",
+      "línea",
+      "contemporánea"
+    ]
+  },
+  {
+    "id": "38452466",
+    "name": "CACEROLA 24cm",
+    "description": "Sección: LÍNEA CONTEMPORÁNEA. Tamaño: 24cm",
+    "price": 578638.0,
+    "price_installments_12": 48220.0,
+    "unit": "unidad",
+    "category": "LÍNEA CONTEMPORÁNEA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $48,220.00, 15 cuotas de $38,576.00, 10 cuotas de $57,864.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 119 | Puntos: 119",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cacerola",
+      "24cm",
+      "línea",
+      "contemporánea"
+    ]
+  },
+  {
+    "id": "38452866",
+    "name": "CACEROLA 28cm",
+    "description": "Sección: LÍNEA CONTEMPORÁNEA. Tamaño: 28cm",
+    "price": 748825.0,
+    "price_installments_12": 62402.0,
+    "unit": "unidad",
+    "category": "LÍNEA CONTEMPORÁNEA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $62,402.00, 15 cuotas de $49,922.00, 10 cuotas de $74,883.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 154 | Puntos: 154",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cacerola",
+      "28cm",
+      "línea",
+      "contemporánea"
+    ]
+  },
+  {
+    "id": "38752966",
+    "name": "CUADRADA 29cm",
+    "description": "Sección: LÍNEA CONTEMPORÁNEA. Tamaño: 29cm",
+    "price": 880112.0,
+    "price_installments_12": 73343.0,
+    "unit": "unidad",
+    "category": "LÍNEA CONTEMPORÁNEA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $73,343.00, 15 cuotas de $58,674.00, 10 cuotas de $88,011.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 181 | Puntos: 181",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cuadrada",
+      "29cm",
+      "línea",
+      "contemporánea"
+    ]
+  },
+  {
+    "id": "38753366",
+    "name": "BIFERA 33x23cm",
+    "description": "Sección: LÍNEA CONTEMPORÁNEA. Tamaño: 23cm",
+    "price": 432762.0,
+    "price_installments_12": 36064.0,
+    "unit": "unidad",
+    "category": "LÍNEA CONTEMPORÁNEA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $36,064.00, 15 cuotas de $28,851.00, 10 cuotas de $43,276.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 89 | Puntos: 89",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "bifera",
+      "33x23cm",
+      "línea",
+      "contemporánea"
+    ]
+  },
+  {
+    "id": "38123032",
+    "name": "FLIP 2.2",
+    "description": "Sección: LÍNEA CONTEMPORÁNEA. Tamaño: 22cm",
+    "price": 666162.0,
+    "price_installments_12": 55514.0,
+    "unit": "unidad",
+    "category": "LÍNEA CONTEMPORÁNEA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $55,514.00, 15 cuotas de $44,411.00, 10 cuotas de $66,616.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 137 | Puntos: 137",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "flip",
+      "2.2",
+      "línea",
+      "contemporánea"
+    ]
+  },
+  {
+    "id": "38753066",
+    "name": "FUENTE RECT 30cm",
+    "description": "Sección: LÍNEA CONTEMPORÁNEA. Tamaño: 30cm",
+    "price": 685612.0,
+    "price_installments_12": 57134.0,
+    "unit": "unidad",
+    "category": "LÍNEA CONTEMPORÁNEA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $57,134.00, 15 cuotas de $45,707.00, 10 cuotas de $68,561.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 141 | Puntos: 141",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "fuente",
+      "rect",
+      "30cm",
+      "línea",
+      "contemporánea"
+    ]
+  },
+  {
+    "id": "38252429",
+    "name": "SARTÉN 24cm",
+    "description": "Sección: LÍNEA ROSA. Tamaño: 24cm",
+    "price": 549462.0,
+    "price_installments_12": 45788.0,
+    "unit": "unidad",
+    "category": "LÍNEA ROSA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $45,788.00, 15 cuotas de $36,631.00, 10 cuotas de $54,946.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 113 | Puntos: 113",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "sartén",
+      "24cm",
+      "línea",
+      "rosa"
+    ]
+  },
+  {
+    "id": "38351829",
+    "name": "CACEROLA 18cm",
+    "description": "Sección: LÍNEA ROSA. Tamaño: 18cm",
+    "price": 432762.0,
+    "price_installments_12": 36064.0,
+    "unit": "unidad",
+    "category": "LÍNEA ROSA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $36,064.00, 15 cuotas de $28,851.00, 10 cuotas de $43,276.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 89 | Puntos: 89",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cacerola",
+      "18cm",
+      "línea",
+      "rosa"
+    ]
+  },
+  {
+    "id": "38452429",
+    "name": "CACEROLA 24cm",
+    "description": "Sección: LÍNEA ROSA. Tamaño: 24cm",
+    "price": 578638.0,
+    "price_installments_12": 48220.0,
+    "unit": "unidad",
+    "category": "LÍNEA ROSA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $48,220.00, 15 cuotas de $38,576.00, 10 cuotas de $57,864.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 119 | Puntos: 119",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cacerola",
+      "24cm",
+      "línea",
+      "rosa"
+    ]
+  },
+  {
+    "id": "38123088",
+    "name": "FLIP 2.2",
+    "description": "Sección: LÍNEA ROSA. Tamaño: 22cm",
+    "price": 666162.0,
+    "price_installments_12": 55514.0,
+    "unit": "unidad",
+    "category": "LÍNEA ROSA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $55,514.00, 15 cuotas de $44,411.00, 10 cuotas de $66,616.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 137 | Puntos: 137",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "flip",
+      "2.2",
+      "línea",
+      "rosa"
+    ]
+  },
+  {
+    "id": "38801339",
+    "name": "SAVARIN 24cm",
+    "description": "Sección: LÍNEA ROSA. Tamaño: 24cm",
+    "price": 170188.0,
+    "price_installments_12": 14182.0,
+    "unit": "unidad",
+    "category": "LÍNEA ROSA",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $14,182.00, 15 cuotas de $11,346.00, 10 cuotas de $17,019.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 35 | Puntos: 35",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "savarin",
+      "24cm",
+      "línea",
+      "rosa"
+    ]
+  },
+  {
+    "id": "38441893",
+    "name": "CACEROLA NUIT 18CM con TAPA DE VIDRIO",
+    "description": "Sección: LÍNEA NUIT. Tamaño: 18cm",
+    "price": 325788.0,
+    "price_installments_12": 27149.0,
+    "unit": "unidad",
+    "category": "LÍNEA NUIT",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $27,149.00, 15 cuotas de $21,719.00, 10 cuotas de $32,579.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 67 | Puntos: 67",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cacerola",
+      "nuit",
+      "18cm",
+      "con",
+      "tapa",
+      "vidrio",
+      "línea"
+    ]
+  },
+  {
+    "id": "P044",
+    "name": "SET 24cm NUIT INDUCCIÓN",
+    "description": "Sección: LÍNEA NUIT. Tamaño: 24cm",
+    "price": 899524.0,
+    "price_installments_12": 74960.0,
+    "unit": "unidad",
+    "category": "LÍNEA NUIT",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $74,960.00, 15 cuotas de $59,968.00, 10 cuotas de $89,952.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 185 | Puntos: 185",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "set",
+      "24cm",
+      "nuit",
+      "inducción",
+      "línea"
+    ]
+  },
+  {
+    "id": "38941793",
+    "name": "SET 24cm NUIT",
+    "description": "Sección: LÍNEA NUIT. Tamaño: 24cm",
+    "price": 802312.0,
+    "price_installments_12": 66859.0,
+    "unit": "unidad",
+    "category": "LÍNEA NUIT",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $66,859.00, 15 cuotas de $53,487.00, 10 cuotas de $80,231.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 165 | Puntos: 165",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "set",
+      "24cm",
+      "nuit",
+      "línea"
+    ]
+  },
+  {
+    "id": "38941593",
+    "name": "SET 28cm NUIT",
+    "description": "Sección: LÍNEA NUIT. Tamaño: 28cm",
+    "price": 1040575.0,
+    "price_installments_12": 86715.0,
+    "unit": "unidad",
+    "category": "LÍNEA NUIT",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $86,715.00, 15 cuotas de $69,372.00, 10 cuotas de $104,058.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 214 | Puntos: 214",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "set",
+      "28cm",
+      "nuit",
+      "línea"
+    ]
+  },
+  {
+    "id": "38142461",
+    "name": "FLIP NUIT",
+    "description": "Sección: LÍNEA NUIT",
+    "price": 632125.0,
+    "price_installments_12": 52677.0,
+    "unit": "unidad",
+    "category": "LÍNEA NUIT",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $52,677.00, 15 cuotas de $42,142.00, 10 cuotas de $63,213.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 130 | Puntos: 130",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "flip",
+      "nuit",
+      "línea"
+    ]
+  },
+  {
+    "id": "38734472",
+    "name": "PLANCHA NUIT",
+    "description": "Sección: LÍNEA NUIT. Tamaño: 27cm",
+    "price": 534875.0,
+    "price_installments_12": 44573.0,
+    "unit": "unidad",
+    "category": "LÍNEA NUIT",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $44,573.00, 15 cuotas de $35,658.00, 10 cuotas de $53,488.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 110 | Puntos: 110",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "plancha",
+      "nuit",
+      "línea"
+    ]
+  },
+  {
+    "id": "38954472",
+    "name": "SET GRILL & NUIT",
+    "description": "Sección: LÍNEA NUIT",
+    "price": 972500.0,
+    "price_installments_12": 81042.0,
+    "unit": "unidad",
+    "category": "LÍNEA NUIT",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $81,042.00, 15 cuotas de $64,833.00, 10 cuotas de $97,250.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 200 | Puntos: 200",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "set",
+      "grill",
+      "nuit",
+      "línea"
+    ]
+  },
+  {
+    "id": "38773248",
+    "name": "KAMADO",
+    "description": "Sección: LÍNEA ESPECIALES ESSEN",
+    "price": 972500.0,
+    "price_installments_12": 81042.0,
+    "unit": "unidad",
+    "category": "LÍNEA ESPECIALES ESSEN",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $81,042.00, 15 cuotas de $64,833.00, 10 cuotas de $97,250.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 200 | Puntos: 200",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "kamado",
+      "línea",
+      "especiales",
+      "essen"
+    ]
+  },
+  {
+    "id": "38002420",
+    "name": "SARTÉN FUSIÓN 24cm ACERO INOXIDABLE",
+    "description": "Sección: LÍNEA ESPECIALES ESSEN. Tamaño: 24cm",
+    "price": 583500.0,
+    "price_installments_12": 48625.0,
+    "unit": "unidad",
+    "category": "LÍNEA ESPECIALES ESSEN",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $48,625.00, 15 cuotas de $38,900.00, 10 cuotas de $58,350.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 120 | Puntos: 120",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "sartén",
+      "fusión",
+      "24cm",
+      "acero",
+      "inoxidable",
+      "línea",
+      "especiales",
+      "essen"
+    ]
+  },
+  {
+    "id": "38002410",
+    "name": "CACEROLA FUSIÓN 24cm ACERO INOXIDABLE",
+    "description": "Sección: LÍNEA ESPECIALES ESSEN. Tamaño: 24cm",
+    "price": 617538.0,
+    "price_installments_12": 51462.0,
+    "unit": "unidad",
+    "category": "LÍNEA ESPECIALES ESSEN",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $51,462.00, 15 cuotas de $41,169.00, 10 cuotas de $61,754.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 127 | Puntos: 127",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cacerola",
+      "fusión",
+      "24cm",
+      "acero",
+      "inoxidable",
+      "línea",
+      "especiales",
+      "essen"
+    ]
+  },
+  {
+    "id": "38734372",
+    "name": "URBAN GRILL",
+    "description": "Sección: LÍNEA ESPECIALES ESSEN. Tamaño: 27cm",
+    "price": 564050.0,
+    "price_installments_12": 47004.0,
+    "unit": "unidad",
+    "category": "LÍNEA ESPECIALES ESSEN",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $47,004.00, 15 cuotas de $37,603.00, 10 cuotas de $56,405.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 116 | Puntos: 116",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "urban",
+      "grill",
+      "línea",
+      "especiales",
+      "essen"
+    ]
+  },
+  {
+    "id": "38802527",
+    "name": "SAVARIN 24cm TWISTER",
+    "description": "Sección: COMPLEMENTOS. Tamaño: 24cm",
+    "price": 170188.0,
+    "price_installments_12": 14182.0,
+    "unit": "unidad",
+    "category": "COMPLEMENTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $14,182.00, 15 cuotas de $11,346.00, 10 cuotas de $17,019.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 35 | Puntos: 35",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "savarin",
+      "24cm",
+      "twister",
+      "complementos"
+    ]
+  },
+  {
+    "id": "38801585",
+    "name": "SAVARIN 18cm TERRA",
+    "description": "Sección: COMPLEMENTOS. Tamaño: 18cm",
+    "price": 126425.0,
+    "price_installments_12": 10535.0,
+    "unit": "unidad",
+    "category": "COMPLEMENTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $10,535.00, 15 cuotas de $8,428.00, 10 cuotas de $12,643.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 26 | Puntos: 26",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "savarin",
+      "18cm",
+      "terra",
+      "complementos"
+    ]
+  },
+  {
+    "id": "38801385",
+    "name": "SAVARIN 24cm",
+    "description": "Sección: COMPLEMENTOS. Tamaño: 24cm",
+    "price": 170188.0,
+    "price_installments_12": 14182.0,
+    "unit": "unidad",
+    "category": "COMPLEMENTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $14,182.00, 15 cuotas de $11,346.00, 10 cuotas de $17,019.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 35 | Puntos: 35",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "savarin",
+      "24cm",
+      "complementos"
+    ]
+  },
+  {
+    "id": "38802384",
+    "name": "VAPORIZADOR 18/28cm",
+    "description": "Sección: COMPLEMENTOS. Tamaño: 28cm",
+    "price": 218812.0,
+    "price_installments_12": 18234.0,
+    "unit": "unidad",
+    "category": "COMPLEMENTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $18,234.00, 15 cuotas de $14,587.00, 10 cuotas de $21,881.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 45 | Puntos: 45",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "vaporizador",
+      "18/28cm",
+      "complementos"
+    ]
+  },
+  {
+    "id": "38891124",
+    "name": "CESTILLO MULTIFUNCIÓN DE ACERO INOXIDABLE",
+    "description": "Sección: COMPLEMENTOS",
+    "price": 218812.0,
+    "price_installments_12": 18234.0,
+    "unit": "unidad",
+    "category": "COMPLEMENTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $18,234.00, 15 cuotas de $14,587.00, 10 cuotas de $21,881.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 45 | Puntos: 45",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cestillo",
+      "multifunción",
+      "acero",
+      "inoxidable",
+      "complementos"
+    ]
+  },
+  {
+    "id": "38802184",
+    "name": "BUDINERAS x2 TERRA",
+    "description": "Sección: COMPLEMENTOS",
+    "price": 257712.0,
+    "price_installments_12": 21476.0,
+    "unit": "unidad",
+    "category": "COMPLEMENTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $21,476.00, 15 cuotas de $17,181.00, 10 cuotas de $25,771.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 53 | Puntos: 53",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "budineras",
+      "terra",
+      "complementos"
+    ]
+  },
+  {
+    "id": "38811400",
+    "name": "SOPORTE PLEGABLE TRIANGULAR",
+    "description": "Sección: COMPLEMENTOS",
+    "price": 97250.0,
+    "price_installments_12": 8104.0,
+    "unit": "unidad",
+    "category": "COMPLEMENTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $8,104.00, 15 cuotas de $6,483.00, 10 cuotas de $9,725.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 20 | Puntos: 20",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "soporte",
+      "plegable",
+      "triangular",
+      "complementos"
+    ]
+  },
+  {
+    "id": "37502400",
+    "name": "TAPA DE VIDRIO CLÁS/CONT/CHEF 24cm",
+    "description": "Sección: COMPLEMENTOS. Tamaño: 24cm",
+    "price": 82662.0,
+    "price_installments_12": 6888.0,
+    "unit": "unidad",
+    "category": "COMPLEMENTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $6,888.00, 15 cuotas de $5,511.00, 10 cuotas de $8,266.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 17 | Puntos: 17",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "tapa",
+      "vidrio",
+      "clás/cont/chef",
+      "24cm",
+      "complementos"
+    ]
+  },
+  {
+    "id": "37542434",
+    "name": "TAPA DE VIDRIO NUIT 24CM",
+    "description": "Sección: COMPLEMENTOS. Tamaño: 24cm",
+    "price": 72938.0,
+    "price_installments_12": 6078.0,
+    "unit": "unidad",
+    "category": "COMPLEMENTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $6,078.00, 15 cuotas de $4,863.00, 10 cuotas de $7,294.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 15 | Puntos: 15",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "tapa",
+      "vidrio",
+      "nuit",
+      "24cm",
+      "complementos"
+    ]
+  },
+  {
+    "id": "37502800",
+    "name": "TAPA DE VIDRIO CLÁS/CONT 28cm",
+    "description": "Sección: COMPLEMENTOS. Tamaño: 28cm",
+    "price": 97250.0,
+    "price_installments_12": 8104.0,
+    "unit": "unidad",
+    "category": "COMPLEMENTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $8,104.00, 15 cuotas de $6,483.00, 10 cuotas de $9,725.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 20 | Puntos: 20",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "tapa",
+      "vidrio",
+      "clás/cont",
+      "28cm",
+      "complementos"
+    ]
+  },
+  {
+    "id": "37542834",
+    "name": "TAPA DE VIDRIO NUIT 28 CM",
+    "description": "Sección: COMPLEMENTOS. Tamaño: 28cm",
+    "price": 97250.0,
+    "price_installments_12": 8104.0,
+    "unit": "unidad",
+    "category": "COMPLEMENTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $8,104.00, 15 cuotas de $6,483.00, 10 cuotas de $9,725.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 20 | Puntos: 20",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "tapa",
+      "vidrio",
+      "nuit",
+      "complementos"
+    ]
+  },
+  {
+    "id": "37543012",
+    "name": "TAPA DE VIDRIO WOK 30cm",
+    "description": "Sección: COMPLEMENTOS. Tamaño: 30cm",
+    "price": 97250.0,
+    "price_installments_12": 8104.0,
+    "unit": "unidad",
+    "category": "COMPLEMENTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $8,104.00, 15 cuotas de $6,483.00, 10 cuotas de $9,725.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 20 | Puntos: 20",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "tapa",
+      "vidrio",
+      "wok",
+      "30cm",
+      "complementos"
+    ]
+  },
+  {
+    "id": "60050220",
+    "name": "LIBRO ESSEN 45 AÑOS",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 121562.0,
+    "price_installments_12": 10130.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $10,130.00, 15 cuotas de $8,104.00, 10 cuotas de $12,156.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 25 | Puntos: 25",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "libro",
+      "essen",
+      "años",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050211",
+    "name": "BOTELLA TERMICA 630ML (Negra)",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 141012.0,
+    "price_installments_12": 11751.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $11,751.00, 15 cuotas de $9,401.00, 10 cuotas de $14,101.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 29 | Puntos: 29",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "botella",
+      "termica",
+      "630ml",
+      "(negra)",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050206",
+    "name": "VASO TERMICO 520ML (Negro)",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 106975.0,
+    "price_installments_12": 8915.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $8,915.00, 15 cuotas de $7,132.00, 10 cuotas de $10,698.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 22 | Puntos: 22",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "vaso",
+      "termico",
+      "520ml",
+      "(negro)",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050209",
+    "name": "MANDOLINA DE MANO CON SUJETADOR",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 194500.0,
+    "price_installments_12": 16208.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $16,208.00, 15 cuotas de $12,967.00, 10 cuotas de $19,450.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 40 | Puntos: 40",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "mandolina",
+      "mano",
+      "con",
+      "sujetador",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050208",
+    "name": "CAFETERA DE ACERO INOXIDABLE",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 252850.0,
+    "price_installments_12": 21071.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $21,071.00, 15 cuotas de $16,857.00, 10 cuotas de $25,285.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 52 | Puntos: 52",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cafetera",
+      "acero",
+      "inoxidable",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050205",
+    "name": "LIMPIADOR ABRILLANTADOR - LIMON LINEA ACERO INOXIDABLE",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 82662.0,
+    "price_installments_12": 6888.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $6,888.00, 15 cuotas de $5,511.00, 10 cuotas de $8,266.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 17 | Puntos: 17",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "limpiador",
+      "abrillantador",
+      "limon",
+      "linea",
+      "acero",
+      "inoxidable",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050205",
+    "name": "LIMPIADOR ABRILLANTADOR - LIMON LINEA ACERO INOXIDABLE",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 34038.0,
+    "price_installments_12": 2836.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $2,836.00, 15 cuotas de $2,269.00, 10 cuotas de $3,404.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 7 | Puntos: 7",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "limpiador",
+      "abrillantador",
+      "limon",
+      "linea",
+      "acero",
+      "inoxidable",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050204",
+    "name": "AFILADOR DE CUCHILLOS",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 87525.0,
+    "price_installments_12": 7294.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $7,294.00, 15 cuotas de $5,835.00, 10 cuotas de $8,753.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 18 | Puntos: 18",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "afilador",
+      "cuchillos",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050183",
+    "name": "CUCHILLO SANTOKU",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 238262.0,
+    "price_installments_12": 19855.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $19,855.00, 15 cuotas de $15,884.00, 10 cuotas de $23,826.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 49 | Puntos: 49",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cuchillo",
+      "santoku",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050182",
+    "name": "CUCHILLO UTILITY",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 165325.0,
+    "price_installments_12": 13777.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $13,777.00, 15 cuotas de $11,022.00, 10 cuotas de $16,533.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 34 | Puntos: 34",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cuchillo",
+      "utility",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050201",
+    "name": "CUCHILLO CARVING",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 223675.0,
+    "price_installments_12": 18640.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $18,640.00, 15 cuotas de $14,912.00, 10 cuotas de $22,368.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 46 | Puntos: 46",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cuchillo",
+      "carving",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050184",
+    "name": "CUCHILLO CHEF",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 238262.0,
+    "price_installments_12": 19855.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $19,855.00, 15 cuotas de $15,884.00, 10 cuotas de $23,826.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 49 | Puntos: 49",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cuchillo",
+      "chef",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050207",
+    "name": "BOMBILLA REGULABLE DE ACERO INOXIDABLE CON DIFUSOR",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 48625.0,
+    "price_installments_12": 4052.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $4,052.00, 15 cuotas de $3,242.00, 10 cuotas de $4,863.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 10 | Puntos: 10",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "bombilla",
+      "regulable",
+      "acero",
+      "inoxidable",
+      "con",
+      "difusor",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050197",
+    "name": "MATE TERMICO CON TAPA",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 97250.0,
+    "price_installments_12": 8104.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $8,104.00, 15 cuotas de $6,483.00, 10 cuotas de $9,725.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 20 | Puntos: 20",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "mate",
+      "termico",
+      "con",
+      "tapa",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050200",
+    "name": "RALLADOR DE MANO - GRANO GRUESO",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 87525.0,
+    "price_installments_12": 7294.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $7,294.00, 15 cuotas de $5,835.00, 10 cuotas de $8,753.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 18 | Puntos: 18",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "rallador",
+      "mano",
+      "grano",
+      "grueso",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050198",
+    "name": "RALLADOR DE MANO - GRANO MEDIO",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 87525.0,
+    "price_installments_12": 7294.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $7,294.00, 15 cuotas de $5,835.00, 10 cuotas de $8,753.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 18 | Puntos: 18",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "rallador",
+      "mano",
+      "grano",
+      "medio",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050199",
+    "name": "RALLADOR DE MANO - GRANO FINO",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 87525.0,
+    "price_installments_12": 7294.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $7,294.00, 15 cuotas de $5,835.00, 10 cuotas de $8,753.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 18 | Puntos: 18",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "rallador",
+      "mano",
+      "grano",
+      "fino",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050212",
+    "name": "REBANADOR DE QUESO DE ACERO INOXIDABLE",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 87525.0,
+    "price_installments_12": 7294.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $7,294.00, 15 cuotas de $5,835.00, 10 cuotas de $8,753.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 18 | Puntos: 18",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "rebanador",
+      "queso",
+      "acero",
+      "inoxidable",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050202",
+    "name": "TABLA DE BAMBOO COCINA",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 97250.0,
+    "price_installments_12": 8104.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $8,104.00, 15 cuotas de $6,483.00, 10 cuotas de $9,725.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 20 | Puntos: 20",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "tabla",
+      "bamboo",
+      "cocina",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050203",
+    "name": "TABLA DE BAMBOO COCINA",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 121562.0,
+    "price_installments_12": 10130.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $10,130.00, 15 cuotas de $8,104.00, 10 cuotas de $12,156.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 25 | Puntos: 25",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "tabla",
+      "bamboo",
+      "cocina",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050161",
+    "name": "ESPÁTULA Y BATIDOR DE SILICONA TERRA - CAPRI",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 83715.0,
+    "price_installments_12": 6976.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $6,976.00, 15 cuotas de $5,581.00, 10 cuotas de $8,372.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 18 | Puntos: 18",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "espátula",
+      "batidor",
+      "silicona",
+      "terra",
+      "capri",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "P087",
+    "name": "SET DE UTENSILIOS ESSEN 60050222",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 223675.0,
+    "price_installments_12": 18640.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $18,640.00, 15 cuotas de $14,912.00, 10 cuotas de $22,368.00",
+        "conditions": "Consultar cuotas disponibles"
+      }
+    ],
+    "tags": [
+      "set",
+      "utensilios",
+      "essen",
+      "60050222",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "P088",
+    "name": "ANAFE A INDUCCIÓN 60050179",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 413312.0,
+    "price_installments_12": 34443.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $34,443.00, 15 cuotas de $27,554.00, 10 cuotas de $41,331.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 85 | Puntos: 85",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "anafe",
+      "inducción",
+      "60050179",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050210",
+    "name": "BOWLS DE ACERO SET X 3 CON TAPA (Negro)",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 301475.0,
+    "price_installments_12": 25123.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $25,123.00, 15 cuotas de $20,098.00, 10 cuotas de $30,148.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 62 | Puntos: 62",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "bowls",
+      "acero",
+      "set",
+      "con",
+      "tapa",
+      "(negro)",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050109",
+    "name": "ABRELATAS 5 EN 1",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 110223.0,
+    "price_installments_12": 9185.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $9,185.00, 15 cuotas de $7,348.00, 10 cuotas de $11,022.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 23 | Puntos: 23",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "abrelatas",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050173",
+    "name": "BALANZA ECO 2 EN 1",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 239268.0,
+    "price_installments_12": 19939.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $19,939.00, 15 cuotas de $15,951.00, 10 cuotas de $23,927.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 51 | Puntos: 51",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "balanza",
+      "eco",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "67700718",
+    "name": "ACEITE DE OLIVA LATA 500CC ARBEQUINA X 3",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 92388.0,
+    "price_installments_12": 7699.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $7,699.00, 15 cuotas de $6,159.00, 10 cuotas de $9,239.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 19 | Puntos: 19",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "aceite",
+      "oliva",
+      "lata",
+      "500cc",
+      "arbequina",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050174",
+    "name": "ASAS DE SILICONA NUIT",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 82662.0,
+    "price_installments_12": 6888.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $6,888.00, 15 cuotas de $5,511.00, 10 cuotas de $8,266.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 17 | Puntos: 17",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "asas",
+      "silicona",
+      "nuit",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050186",
+    "name": "ASAS UNIVERSALES CAPRI - TERRA",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 47629.0,
+    "price_installments_12": 3969.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $3,969.00, 15 cuotas de $3,175.00, 10 cuotas de $4,763.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 10 | Puntos: 10",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "asas",
+      "universales",
+      "capri",
+      "terra",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050165",
+    "name": "ESTIRA MASAS",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 63212.0,
+    "price_installments_12": 5268.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $5,268.00, 15 cuotas de $4,214.00, 10 cuotas de $6,321.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 13 | Puntos: 13",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "estira",
+      "masas",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "67700704",
+    "name": "LIMPIADOR DESENGRASANTE",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 43762.0,
+    "price_installments_12": 3647.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $3,647.00, 15 cuotas de $2,917.00, 10 cuotas de $4,376.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 9 | Puntos: 9",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "limpiador",
+      "desengrasante",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "P097",
+    "name": "MULTIPROCESADOR",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 250258.0,
+    "price_installments_12": 20855.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $20,855.00, 15 cuotas de $16,684.00, 10 cuotas de $25,026.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 53 | Puntos: 53",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "multiprocesador",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050116",
+    "name": "DE VEGETALES PELADOR",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 67803.0,
+    "price_installments_12": 5650.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $5,650.00, 15 cuotas de $4,520.00, 10 cuotas de $6,780.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 14 | Puntos: 14",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "vegetales",
+      "pelador",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050085",
+    "name": "SALERO/PIMENTERO FLIP FLOP",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 102112.0,
+    "price_installments_12": 8509.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $8,509.00, 15 cuotas de $6,807.00, 10 cuotas de $10,211.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 21 | Puntos: 21",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "salero/pimentero",
+      "flip",
+      "flop",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050178",
+    "name": "REJILLA PARA DESMOLDAR",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 155600.0,
+    "price_installments_12": 12967.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $12,967.00, 15 cuotas de $10,373.00, 10 cuotas de $15,560.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 32 | Puntos: 32",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "rejilla",
+      "para",
+      "desmoldar",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050163",
+    "name": "SET DE UTENSILIOS DE USO GENERAL",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 111838.0,
+    "price_installments_12": 9320.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $9,320.00, 15 cuotas de $7,456.00, 10 cuotas de $11,184.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 23 | Puntos: 23",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "set",
+      "utensilios",
+      "uso",
+      "general",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050126",
+    "name": "SET DE UTENSILIOS PARA CARNES",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 72938.0,
+    "price_installments_12": 6078.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $6,078.00, 15 cuotas de $4,863.00, 10 cuotas de $7,294.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 15 | Puntos: 15",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "set",
+      "utensilios",
+      "para",
+      "carnes",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050122",
+    "name": "SET DE UTENSILIOS PARA PASTAS",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 72938.0,
+    "price_installments_12": 6078.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $6,078.00, 15 cuotas de $4,863.00, 10 cuotas de $7,294.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 15 | Puntos: 15",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "set",
+      "utensilios",
+      "para",
+      "pastas",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050133",
+    "name": "SET MATES NEO",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 102112.0,
+    "price_installments_12": 8509.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $8,509.00, 15 cuotas de $6,807.00, 10 cuotas de $10,211.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 21 | Puntos: 21",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "set",
+      "mates",
+      "neo",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "P105",
+    "name": "TARROS MEDIDORES",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 136150.0,
+    "price_installments_12": 11346.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $11,346.00, 15 cuotas de $9,077.00, 10 cuotas de $13,615.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 28 | Puntos: 28",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "tarros",
+      "medidores",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "60050045",
+    "name": "APILABLES SET X 3 VASO MEDIDOR",
+    "description": "Sección: BAZAR PREMIUM",
+    "price": 77364.0,
+    "price_installments_12": 6447.0,
+    "unit": "unidad",
+    "category": "BAZAR PREMIUM",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $6,447.00, 15 cuotas de $5,158.00, 10 cuotas de $7,736.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 16 | Puntos: 16",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "apilables",
+      "set",
+      "vaso",
+      "medidor",
+      "bazar",
+      "premium"
+    ]
+  },
+  {
+    "id": "37800010",
+    "name": "CONJUNTO DE CUCHILLAS ROBOT REIN",
+    "description": "Sección: REPUESTOS",
+    "price": 145875.0,
+    "price_installments_12": 12156.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $12,156.00, 15 cuotas de $9,725.00, 10 cuotas de $14,588.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 30",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "conjunto",
+      "cuchillas",
+      "robot",
+      "rein",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "37800020",
+    "name": "CUBILETE ROBOT REIN",
+    "description": "Sección: REPUESTOS",
+    "price": 43762.0,
+    "price_installments_12": 3647.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $3,647.00, 15 cuotas de $2,917.00, 10 cuotas de $4,376.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 9",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cubilete",
+      "robot",
+      "rein",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "P109",
+    "name": "CESTILLO",
+    "description": "Sección: REPUESTOS",
+    "price": 29175.0,
+    "price_installments_12": 2431.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $2,431.00, 15 cuotas de $1,945.00, 10 cuotas de $2,918.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 6",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "cestillo",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "37800030",
+    "name": "ROBOT REIN MARIPOSA",
+    "description": "Sección: REPUESTOS",
+    "price": 24312.0,
+    "price_installments_12": 2026.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $2,026.00, 15 cuotas de $1,621.00, 10 cuotas de $2,431.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 5",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "robot",
+      "rein",
+      "mariposa",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "37800040",
+    "name": "ROBOT REIN ESPATULA",
+    "description": "Sección: REPUESTOS",
+    "price": 29175.0,
+    "price_installments_12": 2431.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $2,431.00, 15 cuotas de $1,945.00, 10 cuotas de $2,918.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 6",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "robot",
+      "rein",
+      "espatula",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "37800060",
+    "name": "JARRA DE ACERO ROBOT REIN",
+    "description": "Sección: REPUESTOS",
+    "price": 636988.0,
+    "price_installments_12": 53082.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $53,082.00, 15 cuotas de $42,466.00, 10 cuotas de $63,699.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 131",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "jarra",
+      "acero",
+      "robot",
+      "rein",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "P113",
+    "name": "TAPA DE JARRA",
+    "description": "Sección: REPUESTOS",
+    "price": 48625.0,
+    "price_installments_12": 4052.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $4,052.00, 15 cuotas de $3,242.00, 10 cuotas de $4,863.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 10",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "tapa",
+      "jarra",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "37800080",
+    "name": "ROBOT REIN ANILLO DE SELLADO",
+    "description": "Sección: REPUESTOS",
+    "price": 14588.0,
+    "price_installments_12": 1216.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $1,216.00, 15 cuotas de $973.00, 10 cuotas de $1,459.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 3",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "robot",
+      "rein",
+      "anillo",
+      "sellado",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "37800100",
+    "name": "VAPORIZADOR ROBOT REIN",
+    "description": "Sección: REPUESTOS",
+    "price": 24312.0,
+    "price_installments_12": 2026.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $2,026.00, 15 cuotas de $1,621.00, 10 cuotas de $2,431.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 5",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "vaporizador",
+      "robot",
+      "rein",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "37605150",
+    "name": "PERILLA MARSALA",
+    "description": "Sección: REPUESTOS",
+    "price": 34038.0,
+    "price_installments_12": 2836.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $2,836.00, 15 cuotas de $2,269.00, 10 cuotas de $3,404.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 7",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "perilla",
+      "marsala",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "37604912",
+    "name": "PERILLA CONTEMPORÁNEA",
+    "description": "Sección: REPUESTOS",
+    "price": 34038.0,
+    "price_installments_12": 2836.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $2,836.00, 15 cuotas de $2,269.00, 10 cuotas de $3,404.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 7",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "perilla",
+      "contemporánea",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "37604250",
+    "name": "MANGO CLÁSICO MARSALA",
+    "description": "Sección: REPUESTOS",
+    "price": 48625.0,
+    "price_installments_12": 4052.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $4,052.00, 15 cuotas de $3,242.00, 10 cuotas de $4,863.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 10",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "mango",
+      "clásico",
+      "marsala",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "37605212",
+    "name": "MANGO CONTEMPORANEA",
+    "description": "Sección: REPUESTOS",
+    "price": 48625.0,
+    "price_installments_12": 4052.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $4,052.00, 15 cuotas de $3,242.00, 10 cuotas de $4,863.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 10",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "mango",
+      "contemporanea",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "37605961",
+    "name": "MANGO FLIP NUIT - NEGRO",
+    "description": "Sección: REPUESTOS",
+    "price": 72938.0,
+    "price_installments_12": 6078.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $6,078.00, 15 cuotas de $4,863.00, 10 cuotas de $7,294.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 15",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "mango",
+      "flip",
+      "nuit",
+      "negro",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "37604312",
+    "name": "MANGO FLIP",
+    "description": "Sección: REPUESTOS",
+    "price": 68075.0,
+    "price_installments_12": 5673.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $5,673.00, 15 cuotas de $4,538.00, 10 cuotas de $6,808.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 14",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "mango",
+      "flip",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "37605812",
+    "name": "MANGO FLIP 2.0",
+    "description": "Sección: REPUESTOS",
+    "price": 77800.0,
+    "price_installments_12": 6483.0,
+    "unit": "unidad",
+    "category": "REPUESTOS",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $6,483.00, 15 cuotas de $5,187.00, 10 cuotas de $7,780.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 16",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "mango",
+      "flip",
+      "2.0",
+      "repuestos"
+    ]
+  },
+  {
+    "id": "80010040",
+    "name": "COMBO ESSEN+ REIN & CACEROLA 24: REIN + CACEROLA 24cm",
+    "description": "Sección: DESTACADOS - ESSEN+. Tamaño: 24cm",
+    "price": 3608559.0,
+    "price_installments_12": 300713.0,
+    "unit": "combo",
+    "category": "DESTACADOS - ESSEN+",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $300,713.00, 15 cuotas de $240,571.00, 10 cuotas de $360,856.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 635",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "essen+",
+      "rein",
+      "cacerola",
+      "24:",
+      "24cm",
+      "destacados"
+    ]
+  },
+  {
+    "id": "80010070",
+    "name": "COMBO ESSEN+ REIN & CACEROLA 24 FUSION: REIN + CACEROLA FUSIÓN 24cm",
+    "description": "Sección: DESTACADOS - ESSEN+. Tamaño: 24cm",
+    "price": 3646359.0,
+    "price_installments_12": 303863.0,
+    "unit": "combo",
+    "category": "DESTACADOS - ESSEN+",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $303,863.00, 15 cuotas de $243,091.00, 10 cuotas de $364,636.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 643",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "essen+",
+      "rein",
+      "cacerola",
+      "fusion:",
+      "fusión",
+      "24cm",
+      "destacados"
+    ]
+  },
+  {
+    "id": "80010010",
+    "name": "COMBO ESSEN+ REIN & SARTEN 24: REIN + SARTEN 24cm",
+    "description": "Sección: DESTACADOS - ESSEN+. Tamaño: 24cm",
+    "price": 3608559.0,
+    "price_installments_12": 300713.0,
+    "unit": "combo",
+    "category": "DESTACADOS - ESSEN+",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $300,713.00, 15 cuotas de $240,571.00, 10 cuotas de $360,856.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 635",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "essen+",
+      "rein",
+      "sarten",
+      "24:",
+      "24cm",
+      "destacados"
+    ]
+  },
+  {
+    "id": "80010090",
+    "name": "COMBO ESSEN+ REIN & FLIP 2.2: REIN + FLIP 2.2",
+    "description": "Sección: DESTACADOS - ESSEN+",
+    "price": 3693609.0,
+    "price_installments_12": 307801.0,
+    "unit": "combo",
+    "category": "DESTACADOS - ESSEN+",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $307,801.00, 15 cuotas de $246,241.00, 10 cuotas de $369,361.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 653",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "essen+",
+      "rein",
+      "flip",
+      "2.2:",
+      "2.2",
+      "destacados"
+    ]
+  },
+  {
+    "id": "80010080",
+    "name": "COMBO ESSEN+ REIN & FLIP NUIT: REIN + FLIP NUIT",
+    "description": "Sección: DESTACADOS - ESSEN+",
+    "price": 3660534.0,
+    "price_installments_12": 305044.0,
+    "unit": "combo",
+    "category": "DESTACADOS - ESSEN+",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $305,044.00, 15 cuotas de $244,036.00, 10 cuotas de $366,053.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos: 646",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "essen+",
+      "rein",
+      "flip",
+      "nuit:",
+      "nuit",
+      "destacados"
+    ]
+  },
+  {
+    "id": "P128",
+    "name": "COMBO ESSEN+ SARTEN 24 & CACEROLA 18: SARTEN 24cm + CACEROLA 18cm",
+    "description": "Sección: DESTACADOS - ESSEN+. Tamaño: 24cm",
+    "price": 765975.0,
+    "price_installments_12": 63831.0,
+    "unit": "combo",
+    "category": "DESTACADOS - ESSEN+",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $63,831.00, 15 cuotas de $51,065.00, 10 cuotas de $76,598.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 158 | Puntos: 158",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "essen+",
+      "sarten",
+      "cacerola",
+      "18:",
+      "24cm",
+      "18cm",
+      "destacados"
+    ]
+  },
+  {
+    "id": "80010470",
+    "name": "COMBO ESSEN+ SARTEN CHEF TERRA + TAPA DE VIDRIO: SARTEN CHEF TERRA + TAPA DE VIDRIO",
+    "description": "Sección: DESTACADOS - ESSEN+",
+    "price": 340375.0,
+    "price_installments_12": 28365.0,
+    "unit": "combo",
+    "category": "DESTACADOS - ESSEN+",
+    "stock": null,
+    "promotions": [
+      {
+        "description": "Cuotas sin interés disponibles: 12 cuotas de $28,365.00, 15 cuotas de $22,692.00, 10 cuotas de $34,038.00",
+        "conditions": "Consultar cuotas disponibles"
+      },
+      {
+        "description": "Puntos Essen+: 70 | Puntos: 70",
+        "conditions": "Programa de puntos"
+      }
+    ],
+    "tags": [
+      "combo",
+      "essen+",
+      "sarten",
+      "chef",
+      "terra",
+      "tapa",
+      "vidrio:",
+      "vidrio",
+      "destacados"
     ]
   }
 ]

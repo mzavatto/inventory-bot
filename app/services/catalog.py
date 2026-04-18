@@ -49,23 +49,48 @@ class CatalogService:
                 return p
         return None
 
-    def search(self, query: str, limit: int = 5) -> list[Product]:
-        """
-        Search products by name, description, category or tags.
+    def search(
+        self,
+        query: str,
+        limit: int = 5,
+        category: str | None = None,
+    ) -> list[Product]:
+        """Search products by name, description, category, tags or ID.
+
         Uses normalized keyword matching (accent-insensitive, case-insensitive).
+        If ``query`` matches a product ID/SKU exactly, that product is
+        returned first. Optional ``category`` filter restricts results to a
+        single section (matched accent/case-insensitively).
         Returns up to *limit* results ordered by relevance score.
         """
+        results: list[Product] = []
+
+        exact = self.get_by_id(query.strip())
+        if exact and (category is None or _normalize(exact.category) == _normalize(category)):
+            results.append(exact)
+
         q_norm = _normalize(query)
-        keywords = q_norm.split()
+        keywords = [k for k in q_norm.split() if k]
+        cat_norm = _normalize(category) if category else None
 
         scored: list[tuple[int, Product]] = []
         for product in self._products:
-            score = self._score(product, keywords)
+            if exact is not None and product.id == exact.id:
+                continue
+            if cat_norm and _normalize(product.category) != cat_norm:
+                continue
+            score = self._score(product, keywords) if keywords else 1
             if score > 0:
                 scored.append((score, product))
 
         scored.sort(key=lambda x: x[0], reverse=True)
-        return [p for _, p in scored[:limit]]
+        results.extend(p for _, p in scored)
+        return results[:limit]
+
+    def list_by_category(self, category: str, limit: int = 50) -> list[Product]:
+        """Return products belonging to a category (accent/case-insensitive)."""
+        cat_norm = _normalize(category)
+        return [p for p in self._products if _normalize(p.category) == cat_norm][:limit]
 
     def _score(self, product: Product, keywords: list[str]) -> int:
         """Score a product against a list of keywords."""
@@ -98,20 +123,35 @@ class CatalogService:
         return result
 
     def format_product(self, product: Product) -> str:
-        """Format a product for display in chat."""
-        lines = [
-            f"📦 *{product.name}*",
-            f"   {product.description}",
-            f"   💵 Precio: ${product.price:,.2f} por {product.unit}",
-        ]
-        if product.stock is not None:
-            stock_str = "✅ En stock" if product.stock > 0 else "❌ Sin stock"
-            lines.append(f"   {stock_str} ({product.stock} disponibles)")
+        """Detailed product card for the seller (includes SKU + section)."""
+        lines = [f"📦 *{product.name}*"]
+        meta_parts = [f"SKU `{product.id}`"]
+        if product.category:
+            meta_parts.append(product.category)
+        if product.unit and product.unit != "unidad":
+            meta_parts.append(product.unit)
+        lines.append("   " + " · ".join(meta_parts))
+        if product.description:
+            lines.append(f"   {product.description}")
+        lines.append(f"   💵 PSVP Lista: ${product.price:,.2f}")
+        if product.price_installments_12:
+            lines.append(
+                f"   💳 12 cuotas: ${product.price_installments_12:,.2f}"
+            )
         if product.promotions:
             lines.append("   🏷️ Promociones:")
             for promo in product.promotions:
                 lines.append(f"      • {promo.description}")
         return "\n".join(lines)
+
+    def format_product_short(self, product: Product) -> str:
+        """One-line product summary for inline lists (search results, sections)."""
+        installments = (
+            f" / 12x ${product.price_installments_12:,.2f}"
+            if product.price_installments_12
+            else ""
+        )
+        return f"`{product.id}` · {product.name} — ${product.price:,.2f}{installments}"
 
 
 catalog_service = CatalogService()

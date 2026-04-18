@@ -550,3 +550,122 @@ class TestCatalogJsonSaving:
         product = _catalog_item_to_product_dict(item, 5)
         assert product["id"] == "P005"
 
+    def test_catalog_item_propagates_12_installments(self) -> None:
+        """The 12-cuotas value must be exposed in the product dict."""
+        from app.services.ingestion.import_service import _catalog_item_to_product_dict
+
+        item = CatalogItem(
+            name="WOK TERRA",
+            section_name="LÍNEA CONTEMPORÁNEA",
+            skus=[CatalogItemSKU(sku="38223002")],
+            prices=[CatalogPrice(
+                psvp_lista=389000.0,
+                installments_12=32417.0,
+            )],
+        )
+        product = _catalog_item_to_product_dict(item, 1)
+        assert product["price"] == 389000.0
+        assert product["price_installments_12"] == 32417.0
+
+
+class TestLineBasedParser:
+    """Tests for the line-based section/product parser."""
+
+    def _parse(self, text: str, page_number: int = 2) -> list[CatalogItem]:
+        from app.services.ingestion.parser import _parse_pages, ParsedPage
+
+        # We feed the parser two extra pages because it skips the cover
+        # (first) and the bank-promotions trailer (last).
+        cover = ParsedPage(page_number=1, raw_text="Actualizacion: 27/02/24")
+        body = ParsedPage(page_number=page_number, raw_text=text)
+        trailer = ParsedPage(page_number=page_number + 1, raw_text="")
+        return _parse_pages([cover, body, trailer])
+
+    def test_destacados_combo_with_plus_components(self) -> None:
+        """A DESTACADOS row with components separated by '+' becomes a combo."""
+        text = (
+            "DESTACADOS\n"
+            "Cuotas sin interés\n"
+            "18 CUOTAS 15 CUOTAS 12 CUOTAS 10 CUOTAS PSVP LISTA\n"
+            "BIFERA 33X23cm\n"
+            "+ SARTÉN CHEF TERRA\n"
+            "$ 33.497 $ 40.197 $ 50.246 $ 60.295 $ 602.950 $ 482.360 $ 434.124 124 124 0\n"
+            "Combo a Tu Medida Chef\n"
+            "Capri o Terra\n"
+        )
+        items = self._parse(text)
+        assert len(items) == 1
+        item = items[0]
+        assert item.item_type == ItemType.COMBO
+        assert "BIFERA 33X23cm" in item.name
+        assert "SARTÉN CHEF TERRA" in item.name
+        assert "Combo a Tu Medida Chef" in item.name
+        assert item.prices[0].psvp_lista == 602950.0
+        assert item.prices[0].installments_12 == 50246.0
+        assert item.prices[0].puntos == 124
+
+    def test_linea_product_with_size_and_sku_after_price(self) -> None:
+        """Standard LÍNEA layout: product name, price line, then size + SKU."""
+        text = (
+            "LÍNEA CONTEMPORÁNEA\n"
+            "18 CUOTAS 15 CUOTAS 12 CUOTAS 10 CUOTAS PSVP LISTA\n"
+            "WOK TERRA\n"
+            "3 LTS $ 21.611 $ 25.933 $ 32.417 $ 38.900 $ 389.000 $ 311.200 $ 280.080 80 80 0\n"
+            "38223002\n"
+        )
+        items = self._parse(text)
+        assert len(items) == 1
+        item = items[0]
+        assert item.item_type == ItemType.PRODUCT
+        assert item.name == "WOK TERRA"
+        assert item.skus[0].sku == "38223002"
+        assert item.prices[0].psvp_lista == 389000.0
+        assert item.prices[0].installments_12 == 32417.0
+
+    def test_variant_tag_after_price_is_not_new_product(self) -> None:
+        """Single uppercase tags like 'ROSA' should stay as variant info."""
+        text = (
+            "LÍNEA ROSA\n"
+            "18 CUOTAS 15 CUOTAS 12 CUOTAS 10 CUOTAS PSVP LISTA\n"
+            "SAVARIN 24cm $ 9.455 $ 11.346 $ 14.182 $ 17.019 $ 170.188 $ 136.150 $ 122.535 35 35 0\n"
+            "ROSA\n"
+            "38801339\n"
+        )
+        items = self._parse(text)
+        assert len(items) == 1
+        assert items[0].name == "SAVARIN 24cm"
+        assert items[0].skus[0].sku == "38801339"
+        assert items[0].prices[0].psvp_lista == 170188.0
+
+    def test_destacados_essen_plus_combo_with_uppercase_name(self) -> None:
+        """An uppercase 'COMBO ESSEN+ ...' line is treated as the combo name."""
+        text = (
+            "DESTACADOS - ESSEN+\n"
+            "18 CUOTAS 15 CUOTAS 12 CUOTAS 10 CUOTAS PSVP LISTA\n"
+            "REIN\n"
+            "CACEROLA 24cm\n"
+            "COMBO ESSEN+ REIN & CACEROLA 24 $ 200.475 $ 240.571 $ 300.713 $ 360.856 $ 3.608.559 $ 2.886.847 - - 635 0\n"
+            "80010040 - 80010050 + 80010060\n"
+            "Terra Cera Forte, Capri o Terra\n"
+        )
+        items = self._parse(text)
+        assert len(items) == 1
+        item = items[0]
+        assert item.item_type == ItemType.COMBO
+        assert "COMBO ESSEN+ REIN & CACEROLA 24" in item.name
+        assert {s.sku for s in item.skus} == {"80010040", "80010050", "80010060"}
+        assert item.prices[0].psvp_lista == 3608559.0
+        assert item.prices[0].installments_12 == 300713.0
+
+    def test_first_and_last_pages_are_skipped(self) -> None:
+        """Cover and bank-promotions pages must produce no items."""
+        from app.services.ingestion.parser import _parse_pages, ParsedPage
+
+        cover = ParsedPage(page_number=1, raw_text="Actualizacion: 27/02/24")
+        bank = ParsedPage(
+            page_number=2,
+            raw_text="Banco Galicia 12 cuotas sin interés con Visa",
+        )
+        items = _parse_pages([cover, bank])
+        assert items == []
+

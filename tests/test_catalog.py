@@ -127,11 +127,12 @@ class TestCatalogService:
         assert "850" in formatted
         assert "Yerba Mate Test 500g" in formatted
 
-    def test_format_product_shows_out_of_stock(self, catalog: CatalogService) -> None:
+    def test_format_product_shows_sku_and_section(self, catalog: CatalogService) -> None:
         product = catalog.get_by_id("T003")
         assert product is not None
         formatted = catalog.format_product(product)
-        assert "Sin stock" in formatted
+        assert "T003" in formatted
+        assert product.category in formatted
 
     def test_format_product_shows_promotions(self, catalog: CatalogService) -> None:
         product = catalog.get_by_id("T001")

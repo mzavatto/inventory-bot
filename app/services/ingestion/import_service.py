@@ -42,10 +42,12 @@ def _catalog_item_to_product_dict(item: CatalogItem, idx: int) -> dict:
     else:
         product_id = f"P{idx:03d}"
     
-    # Get price from the item's prices
+    # Get price from the item's prices. The PSVP LISTA column is the
+    # canonical retail price; the 12-cuotas value is also stored separately
+    # so the chatbot can mention installment options.
     price = 0.0
+    price_installments_12: float | None = None
     if item.prices:
-        # Prefer psvp_lista, then precio_preferencial, then any available price
         price_info = item.prices[0]
         if price_info.psvp_lista:
             price = price_info.psvp_lista
@@ -53,6 +55,8 @@ def _catalog_item_to_product_dict(item: CatalogItem, idx: int) -> dict:
             price = price_info.precio_preferencial
         elif price_info.psvp_negocio:
             price = price_info.psvp_negocio
+        if price_info.installments_12:
+            price_installments_12 = price_info.installments_12
     
     # Build description
     description_parts = []
@@ -115,9 +119,10 @@ def _catalog_item_to_product_dict(item: CatalogItem, idx: int) -> dict:
         "name": item.name,
         "description": description,
         "price": price,
-        "unit": "unidad",
+        "price_installments_12": price_installments_12,
+        "unit": "combo" if item.item_type.value == "combo" else "unidad",
         "category": item.section_name or "General",
-        "stock": None,  # Stock not available from PDF
+        "stock": None,
         "promotions": promotions,
         "tags": tags
     }
